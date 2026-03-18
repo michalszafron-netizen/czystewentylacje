@@ -11,9 +11,9 @@ const Logo = ({ className = "" }: { className?: string }) => {
     <div className={`flex items-center justify-start ${className}`} style={{ minHeight: '40px', minWidth: '100px' }}>
       {!error ? (
         <img 
-          src="/trannslogo2.png" 
+          src="/Zasob1.png" 
           alt="Freedom Czyste Wentylacje" 
-          className="h-10 md:h-16 w-auto object-contain transition-transform hover:scale-105"
+          className="h-7 md:h-10 max-w-full w-auto object-contain transition-transform hover:scale-105"
           onError={() => setError(true)}
         />
       ) : (
@@ -665,23 +665,49 @@ const AboutPage = () => (
 );
 
 const ContactPage = () => {
-  const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
+  const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '', 'bot-field': '' });
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus('sending');
+
+    const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+
     try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
-      if (response.ok) {
-        setStatus('success');
-        setFormData({ name: '', email: '', subject: '', message: '' });
+      if (isLocal) {
+        // Local Mode: Use server.ts with JSON
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData),
+        });
+        if (response.ok) {
+          setStatus('success');
+          setFormData({ name: '', email: '', subject: '', message: '', 'bot-field': '' });
+        } else {
+          setStatus('error');
+        }
       } else {
-        setStatus('error');
+        // Production Mode: Use Netlify Forms with urlencoded
+        const encode = (data: any) => {
+          return Object.keys(data)
+            .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
+            .join("&");
+        };
+
+        const response = await fetch("/", {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: encode({ "form-name": "contact", ...formData })
+        });
+
+        if (response.ok) {
+          setStatus('success');
+          setFormData({ name: '', email: '', subject: '', message: '', 'bot-field': '' });
+        } else {
+          setStatus('error');
+        }
       }
     } catch (error) {
       console.error("Submission error:", error);
@@ -750,7 +776,23 @@ const ContactPage = () => {
               </button>
             </motion.div>
           ) : (
-            <form className="space-y-6" onSubmit={handleSubmit}>
+            <form 
+              className="space-y-6" 
+              onSubmit={handleSubmit}
+              name="contact"
+              data-netlify="true"
+              data-netlify-honeypot="bot-field"
+            >
+              <input type="hidden" name="form-name" value="contact" />
+              <p className="hidden">
+                <label>Don’t fill this out if you're human: 
+                  <input 
+                    name="bot-field" 
+                    value={formData['bot-field']}
+                    onChange={(e) => setFormData({ ...formData, 'bot-field': e.target.value })}
+                  />
+                </label>
+              </p>
               <input 
                 required
                 className="w-full bg-slate-50 border border-slate-200 p-4 rounded-xl font-bold placeholder:text-slate-400 outline-none focus:ring-2 focus:ring-primary/20 transition-all font-sans" 
@@ -803,7 +845,7 @@ const Footer = () => (
   <footer className="px-4 md:px-8 lg:px-12 pb-8 md:pb-12 relative overflow-hidden">
     <div className="absolute -bottom-20 left-1/2 -translate-x-1/2 w-full h-40 bg-primary/5 blur-[100px] pointer-events-none"></div>
     <div className="bg-slate-900 rounded-2xl md:rounded-[4rem] p-8 md:p-20 text-white relative z-10">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12 md:mb-16">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 mb-12 md:mb-16">
         <div className="col-span-1 md:col-span-1">
           <div className="mb-8">
             <Logo />

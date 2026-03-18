@@ -3,10 +3,23 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Rotobrush - V13.1 DEBUG</title>
+    <title>Freedom - Czyste Wentylacje</title>
+    <link rel="icon" type="image/png" href="/Zasob2.png?v=2" />
+    <link rel="shortcut icon" href="/Zasob2.png?v=2" />
+    <link rel="apple-touch-icon" href="/Zasob2.png?v=2" />
   </head>
   <body>
     <div id="root"></div>
+    
+    <!-- Hidden form for Netlify Bot to detect -->
+    <form name="contact" netlify netlify-honeypot="bot-field" hidden>
+      <input type="text" name="bot-field" />
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <input type="text" name="subject" />
+      <textarea name="message"></textarea>
+    </form>
+
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
