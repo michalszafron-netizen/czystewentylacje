@@ -298,8 +298,8 @@ const VideoPlaceholder = () => {
           <>
             {/* Background Image */}
             <img 
-              src="/assets/images/home/forest-placeholder.jpg"
-              alt="Video Background"
+              src="https://img.youtube.com/vi/IZro72G3_AA/maxresdefault.jpg"
+              alt="Video Thumbnail"
               className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000"
             />
             {/* Overlays */}
