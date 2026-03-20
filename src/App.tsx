@@ -4,6 +4,18 @@ import { BrowserRouter, Routes, Route, Link, useLocation } from "react-router-do
 import React, { useState, useEffect } from "react";
 import { siteData } from "./data/siteData";
 
+const usePageTitle = (title: string) => {
+  useEffect(() => {
+    document.title = title;
+    return () => { document.title = 'Czyścimy Wentylacje | Eksperci od Higieny Wentylacji'; };
+  }, [title]);
+};
+
+const PageTitle = ({ title }: { title: string }) => {
+  usePageTitle(title);
+  return null;
+};
+
 const Logo = ({ className = "" }: { className?: string }) => {
   const [error, setError] = useState(false);
   
@@ -133,22 +145,19 @@ const Hero = () => (
       transition={{ duration: 0.8 }}
       className="w-full h-auto aspect-square md:aspect-auto md:h-[650px] rounded-2xl md:rounded-[3rem] overflow-hidden relative group shadow-2xl border border-white/10 bg-slate-900"
     >
-      <div className="absolute inset-0 bg-gradient-to-tr from-black/95 via-black/40 to-transparent z-10"></div>
-      <img 
-        className="absolute inset-0 w-full h-full object-cover scale-105 group-hover:scale-100 transition-transform duration-[2s] opacity-70" 
-        src={siteData.home.hero.background} 
-        alt="Rotobrush Hero"
-      />
-      
-      {/* Centered Play Button wrapper */}
-      <div className="absolute inset-0 z-30 flex items-center justify-center pointer-events-none">
-        <motion.div 
-          whileHover={{ scale: 1.1 }}
-          className="w-16 h-16 md:w-24 md:h-24 bg-primary rounded-full flex items-center justify-center shadow-[0_0_50px_rgba(227,30,36,0.6)] cursor-pointer border-4 border-white/40 pointer-events-auto"
-        >
-          <Play className="w-6 h-6 md:w-10 md:h-10 text-white fill-current ml-1" />
-        </motion.div>
+      {/* YouTube Video Background */}
+      <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none">
+        <iframe
+          className="absolute top-1/2 left-1/2 w-[177.78%] h-[177.78%] min-w-full min-h-full -translate-x-1/2 -translate-y-1/2 opacity-70"
+          src="https://www.youtube.com/embed/IZro72G3_AA?autoplay=1&loop=1&playlist=IZro72G3_AA&mute=1&controls=0&modestbranding=1&rel=0&showinfo=0&iv_load_policy=3&disablekb=1"
+          title="Czyścimy Wentylacje - video"
+          allow="autoplay; encrypted-media"
+          allowFullScreen={false}
+        />
       </div>
+
+      {/* Dark gradient overlay so text stays readable */}
+      <div className="absolute inset-0 bg-gradient-to-tr from-black/90 via-black/40 to-transparent z-10 pointer-events-none"></div>
 
       <div className="absolute inset-0 z-20 flex flex-col items-center md:items-start justify-center text-center md:text-left px-6 md:px-16 pt-12 pb-12 md:pt-32 md:pb-32 max-w-5xl">
         <motion.div 
@@ -273,58 +282,86 @@ const Services = () => {
 };
 
 
-const VideoPlaceholder = () => (
-  <section className="px-0 md:px-10 lg:px-14 relative">
-    <div className="absolute -top-20 -left-20 w-80 h-80 bg-primary/5 blur-[100px] rounded-full pointer-events-none"></div>
-    <div className="absolute -bottom-20 -right-20 w-80 h-80 bg-primary/5 blur-[100px] rounded-full pointer-events-none"></div>
-    <motion.div 
-      initial={{ opacity: 0, scale: 0.98 }}
-      whileInView={{ opacity: 1, scale: 1 }}
-      className="relative h-auto aspect-square md:aspect-auto md:h-[600px] bg-slate-900 rounded-2xl md:rounded-[4rem] overflow-hidden shadow-2xl border border-white/10 group cursor-pointer"
-    >
-      {/* Background Image */}
-      <img 
-        src="/assets/images/home/forest-placeholder.jpg"
-        alt="Video Background"
-        className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000"
-      />
-      {/* Overlays */}
-      <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent z-10"></div>
-      
-      {/* Content */}
-      <div className="absolute inset-0 z-20 flex flex-col items-center justify-center p-6 md:p-16 text-center md:text-left md:flex-row md:justify-between gap-6 md:gap-12">
-        <div className="max-w-xl space-y-4 md:space-y-8 flex flex-col justify-center">
-          <h2 className="text-2xl md:text-5xl font-black text-white tracking-tight leading-tight">
-            Zobacz jak pracujemy
-          </h2>
-          <p className="hidden md:block text-slate-300 text-lg leading-relaxed font-bold">
-            Nasz proces jest transparentny, czysty i niezwykle skuteczny. Wykorzystujemy kamery inspekcyjne, aby pokazać Ci różnicę "przed" i "po" wykonaniu usługi.
-          </p>
-          <ul className="hidden md:block space-y-4">
-            {[ 
-              "Pełna wideo-inspekcja kanałów",
-              "Bezpyłowa technologia HEPA",
-              "Raport techniczny po usłudze"
-            ].map((item, i) => (
-              <li key={i} className="flex items-center gap-3">
-                <div className="w-6 h-6 bg-primary/20 rounded-full flex items-center justify-center shrink-0">
-                  <CheckCircle2 className="w-4 h-4 text-primary" />
-                </div>
-                <span className="text-white font-bold">{item}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
+const VideoPlaceholder = () => {
+  const [isPlaying, setIsPlaying] = useState(false);
 
-        <div className="flex items-center justify-center">
-          <button className="w-20 h-20 md:w-32 md:h-32 bg-primary text-white rounded-full flex items-center justify-center shadow-2xl shadow-primary/40 hover:scale-110 active:scale-95 transition-all duration-300 group/btn">
-            <Play className="w-8 h-8 md:w-14 md:h-14 fill-current ml-1.5 md:ml-2 group-hover/btn:scale-110 transition-transform" />
-          </button>
-        </div>
-      </div>
-    </motion.div>
-  </section>
-);
+  return (
+    <section className="px-0 md:px-10 lg:px-14 relative">
+      <div className="absolute -top-20 -left-20 w-80 h-80 bg-primary/5 blur-[100px] rounded-full pointer-events-none"></div>
+      <div className="absolute -bottom-20 -right-20 w-80 h-80 bg-primary/5 blur-[100px] rounded-full pointer-events-none"></div>
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.98 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        className="relative h-auto aspect-square md:aspect-auto md:h-[600px] bg-slate-900 rounded-2xl md:rounded-[4rem] overflow-hidden shadow-2xl border border-white/10 group"
+      >
+        {!isPlaying ? (
+          <>
+            {/* Background Image */}
+            <img 
+              src="/assets/images/home/forest-placeholder.jpg"
+              alt="Video Background"
+              className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000"
+            />
+            {/* Overlays */}
+            <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent z-10"></div>
+            
+            {/* Content */}
+            <div className="absolute inset-0 z-20 flex flex-col items-center justify-center p-6 md:p-16 text-center md:text-left md:flex-row md:justify-between gap-6 md:gap-12">
+              <div className="max-w-xl space-y-4 md:space-y-8 flex flex-col justify-center">
+                <h2 className="text-2xl md:text-5xl font-black text-white tracking-tight leading-tight">
+                  Zobacz jak pracujemy
+                </h2>
+                <p className="hidden md:block text-slate-300 text-lg leading-relaxed font-bold">
+                  Nasz proces jest transparentny, czysty i niezwykle skuteczny. Wykorzystujemy kamery inspekcyjne, aby pokazać Ci różnicę "przed" i "po" wykonaniu usługi.
+                </p>
+                <ul className="hidden md:block space-y-4">
+                  {[ 
+                    "Pełna wideo-inspekcja kanałów",
+                    "Bezpyłowa technologia HEPA",
+                    "Raport techniczny po usłudze"
+                  ].map((item, i) => (
+                    <li key={i} className="flex items-center gap-3">
+                      <div className="w-6 h-6 bg-primary/20 rounded-full flex items-center justify-center shrink-0">
+                        <CheckCircle2 className="w-4 h-4 text-primary" />
+                      </div>
+                      <span className="text-white font-bold">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="flex items-center justify-center">
+                <button 
+                  onClick={() => setIsPlaying(true)}
+                  className="w-20 h-20 md:w-32 md:h-32 bg-primary text-white rounded-full flex items-center justify-center shadow-2xl shadow-primary/40 hover:scale-110 active:scale-95 transition-all duration-300 group/btn pointer-events-auto"
+                >
+                  <Play className="w-8 h-8 md:w-14 md:h-14 fill-current ml-1.5 md:ml-2 group-hover/btn:scale-110 transition-transform" />
+                </button>
+              </div>
+            </div>
+          </>
+        ) : (
+          <div className="absolute inset-0 w-full h-full bg-black">
+            <iframe
+              className="w-full h-full"
+              src="https://www.youtube.com/embed/IZro72G3_AA?autoplay=1&controls=1&modestbranding=1&rel=0"
+              title="YouTube video player"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            ></iframe>
+            <button 
+              onClick={() => setIsPlaying(false)}
+              className="absolute top-6 right-6 z-30 p-2 bg-black/50 hover:bg-black/80 text-white rounded-full transition-colors"
+            >
+              <X className="w-6 h-6" />
+            </button>
+          </div>
+        )}
+      </motion.div>
+    </section>
+  );
+};
 
 const InfiniteRibbon = () => {
   const images = [
@@ -559,7 +596,9 @@ const RotobrushTech = () => (
 );
 
 const Home = () => (
-  <main className="max-w-7xl mx-auto py-8 space-y-12 md:space-y-32 mb-20 px-6">
+  <>
+    <PageTitle title="Czyścimy Wentylacje | Czyszczenie i Dezynfekcja Kanałów Wentylacyjnych" />
+    <main className="max-w-7xl mx-auto py-8 space-y-12 md:space-y-32 mb-20 px-6">
     <Hero />
     
     <Services />
@@ -631,11 +670,11 @@ const Home = () => (
       </div>
     </section>
   </main>
+</>
 );
 
 const ServicesPage = () => {
-  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
-  const [expandedInfoIndex, setExpandedInfoIndex] = useState<number | null>(null);
+  usePageTitle('Nasze Usługi | Czyścimy Wentylacje');
   const { hash } = useLocation();
 
   useEffect(() => {
@@ -645,8 +684,6 @@ const ServicesPage = () => {
       if (element) {
         setTimeout(() => {
           element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          const idx = siteData.uslugi.detailed.findIndex(s => s.id === id);
-          if (idx !== -1) setExpandedIndex(idx);
         }, 100);
       }
     }
@@ -658,7 +695,7 @@ const ServicesPage = () => {
         <motion.h1 
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
-          className="text-4xl md:text-7xl font-black text-slate-900 tracking-tighter mb-8 leading-tight"
+          className="text-4xl md:text-6xl font-black text-slate-900 tracking-tighter mb-8 leading-tight"
         >
           Nasze Usługi i Technologia
         </motion.h1>
@@ -679,151 +716,26 @@ const ServicesPage = () => {
               <img src={s.asset} alt={s.title} className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-[2s]" />
             </motion.div>
             <div className="w-full lg:w-1/2 space-y-6 pt-4">
-              <span className="text-slate-600 font-black uppercase tracking-[0.2em] text-[10px] bg-slate-100 px-4 py-1.5 rounded-full border border-slate-200">Serwis {i + 1}</span>
+              <span className="text-slate-600 font-black uppercase tracking-[0.2em] text-[10px] bg-slate-100 px-4 py-1.5 rounded-full border border-slate-200 mb-4 inline-block">Usługa {i + 1}</span>
               <h2 className="text-3xl md:text-4xl font-black text-slate-900 tracking-tight leading-tight">{s.title}</h2>
               
-              <div className="relative">
-                <p className={`text-lg text-slate-600 leading-relaxed font-medium transition-all duration-500 overflow-hidden ${expandedIndex === i ? 'max-h-[1000px] opacity-100' : 'max-h-24 opacity-80'}`}>
+              <div>
+                <p className="text-lg text-slate-600 leading-relaxed font-medium">
                   {s.text}
                 </p>
-                {expandedIndex !== i && (
-                  <div className="absolute bottom-0 left-0 right-0 h-10 bg-gradient-to-t from-white to-transparent"></div>
-                )}
-              </div>
-
-              <div className="flex flex-wrap gap-4 pt-4">
-                <button 
-                  onClick={() => setExpandedIndex(expandedIndex === i ? null : i)}
-                  className="inline-flex items-center gap-2 bg-primary hover:bg-red-700 text-white px-6 py-3 rounded-2xl font-black text-sm transition-all active:scale-95 shadow-lg shadow-primary/20"
-                >
-                  {expandedIndex === i ? 'Zwiń Opis' : 'Rozwiń Opis'}
-                  {expandedIndex === i ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
-                </button>
-                <Link to="/kontakt" className="inline-flex items-center gap-2 text-slate-900 hover:text-primary font-black text-sm group hover:scale-105 transition-transform bg-white border border-slate-200 px-6 py-3 rounded-2xl shadow-sm">
-                  Zapytaj o szczegóły <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </Link>
               </div>
             </div>
           </div>
         ))}
       </div>
-
-      {/* Refined Technical Sections with Accordion */}
-      {[
-        {
-          id: 'cert',
-          tag: 'Ekspertyza',
-          title: 'Certyfikat HVAC Maintenance Specialist',
-          description: 'Nasza kompetencja jest filarem Twojego bezpieczeństwa. Posiadamy prestiżowy certyfikat HVAC Maintenance Specialist, a nasi technicy szkoleni są zarówno w Polsce, jak i za granicą (Dania, USA), aby wdrażać najbardziej zaawansowane procedury EVHA (European Ventilation Hygiene Association). To nie tylko formalność – to gwarancja, że każda operacja czyszczenia i dezynfekcji jest realizowana przez licencjonowanych ekspertów posiadających głęboką wiedzę techniczną oraz rzetelne, wieloletnie doświadczenie operacyjne.',
-          image: '/assets/images/uslugi/certyfikat-scaled.jpg',
-          bgColor: 'bg-slate-50'
-        },
-        {
-          id: 'res',
-          title: 'Pobudowlany Rozruch i Sanacja Rekuperacji',
-          description: 'Zadbaj o krystalicznie czysty start w nowym domu. Podczas prac wykończeniowych do kanałów rekuperacji dostają się ogromne ilości pyłu gipsowego, betonu i resztek materiałów izolacyjnych, które są groźne dla zdrowia i sprawności rekuperatora. Nasz proces precyzyjnego usuwania zanieczyszczeń pobudowlanych przywraca systemowi fabryczną sterylność, chroniąc płuca Twojej rodziny oraz gwarantując bezawaryjną pracę nowej jednostki od pierwszego uruchomienia.',
-          image: '/assets/images/web/tech-preparation-for-cleaning-2.avif',
-          bgColor: 'bg-white'
-        },
-        {
-          id: 'comm',
-          title: 'Standardy ISO i Higiena w Sektorze B2B',
-          description: 'Budujemy kulturę czystego powietrza w biznesie. Zapewniamy pełną zgodność z normami ISO 16890 oraz ISO 14644 (Safe Air Zones), co jest kluczowe w biurach, restauracjach i placówkach medycznych. Profesjonalny audyt i czyszczenie kanałów to nie tylko wymóg prawny, ale realny wpływ na redukcję absencji pracowników, poprawę ich koncentracji oraz wydłużenie żywotności drogich systemów HVAC poprzez przywrócenie ich projektowej sprawności.',
-          image: '/assets/images/web/technicy-czyszczenie-wentylacji.avif',
-          bgColor: 'bg-white',
-          dark: false
-        },
-        {
-          id: 'fire',
-          title: 'Certyfikowana Prewencja Przeciwpożarowa',
-          description: 'Bezpieczeństwo przeciwpożarowe zaczyna się wewnątrz kanałów. Akumulacja łatwopalnych pyłów i tłuszczów w instalacjach wentylacyjnych to ukryta bomba zegarowa. W razie wystąpienia ognia, zanieczyszczone kanały działają jak lont, rozprzestrzeniając pożar błyskawicznie na cały obiekt. Nasze specjalistyczne czyszczenie to najskuteczniejsza forma prewencji P-POŻ, eliminująca źródło zagrożenia i zapewniająca pełne bezpieczeństwo budynku zgodnie z wymogami ochrony mienia.',
-          image: '/assets/images/web/technician-cleaning-ventilation-with-rotobrush.avif',
-          bgColor: 'bg-white'
-        },
-        {
-          id: 'dis',
-          title: 'Bio-Dezynfekcja Molekularna (Kenolox™)',
-          description: 'Standard sterylności szpitalnej w Twoim zasięgu. Wykorzystujemy Kenolox™ – światowego lidera ekologicznej dezynfekcji molekularnej, który likwiduje 99.9% patogenów (wirusy, bakterie, zarodniki grzybów). Dzięki metodzie precyzyjnego zamgławiania po mechanicznym oczyszczeniu, preparat dociera do najgłębszych zakamarków instalacji, pozostawiając system wolny od mikroorganizmów i nieprzyjemnych zapachów, przy zachowaniu pełnego bezpieczeństwa dla alergików.',
-          image: '/assets/images/web/przygotowanie-do-czyszczenia-wentylacji-rotobrush.avif',
-          bgColor: 'bg-slate-50'
-        },
-        {
-          id: 'sbs',
-          title: 'Syndrom Chorego Budynku (SBS)',
-          description: 'Gdy budynek zaczyna szkodzić – my przywracamy mu równowagę. Syndrom Chorego Budynku (Sick Building Syndrome) to realne zagrożenie wynikające z akumulacji toksyn i bio-filmu w rzadko serwisowanych kanałach. Alergie, bóle głowy i chroniczne zmęczenie to często bezpośredni wynik zaniedbanej wentylacji. Nasza kompletna sanacja systemów HVAC eliminuje mikroorganizmy u źródła, przywracając higienę pracy i komfort życia, który bezpośrednio przekłada się na zdrowie użytkowników.',
-          image: '/assets/images/web/technik-przygotowanie-do-czyszczenia-wentylacji-3.avif',
-          bgColor: 'bg-white'
-        }
-      ].map((block, idx) => {
-        const isExpanded = expandedInfoIndex === idx;
-        const isDark = block.dark;
-
-        return (
-          <motion.section 
-            id={block.id}
-            key={block.id}
-            whileHover={{ y: -5 }}
-            transition={{ duration: 0.4 }}
-          >
-            <div className={`${block.bgColor} rounded-2xl md:rounded-[4rem] p-8 md:p-24 border ${isDark ? 'border-white/10' : 'border-slate-200 shadow-sm'} flex flex-col ${idx % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-20 items-center overflow-hidden relative group cursor-pointer hover:shadow-2xl transition-all`}>
-              {isDark && <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 blur-[120px] rounded-full"></div>}
-              
-              <div className={`lg:w-1/2 space-y-8 relative z-10`}>
-                {block.tag && (
-                  <span className={`${isDark ? 'bg-white/10 text-white' : 'bg-primary/10 text-primary'} font-black uppercase tracking-[0.2em] text-[10px] px-4 py-1.5 rounded-full`}>
-                    {block.tag}
-                  </span>
-                )}
-                <h2 className={`text-4xl font-black ${isDark ? 'text-white' : 'text-slate-900'} tracking-tight`}>
-                  {block.title}
-                </h2>
-                
-                <div className="relative">
-                  <div className={`space-y-6 overflow-hidden transition-all duration-500 ease-in-out ${isExpanded ? 'max-h-[2000px]' : 'max-h-32 md:max-h-32'}`}>
-                    {block.description.split('\n\n').map((par, pIdx) => (
-                      <p key={pIdx} className={`${isDark ? 'text-slate-400' : 'text-slate-600'} leading-relaxed text-sm md:text-base`}>
-                        {par}
-                      </p>
-                    ))}
-                  </div>
-                  {!isExpanded && (
-                    <div className={`absolute bottom-0 left-0 right-0 h-10 bg-gradient-to-t ${isDark ? 'from-slate-900' : 'from-white'} to-transparent`}></div>
-                  )}
-                </div>
-
-                <div className="flex flex-wrap gap-4 pt-4">
-                  <button 
-                    onClick={() => setExpandedInfoIndex(isExpanded ? null : idx)}
-                    className={`inline-flex items-center gap-2 ${isDark ? 'bg-white/10 hover:bg-white/20 text-white' : 'bg-slate-100 hover:bg-slate-200 text-slate-900'} px-6 py-3 rounded-2xl font-black text-sm transition-all active:scale-95`}
-                  >
-                    {isExpanded ? 'Zwiń Opis' : 'Rozwiń Opis'}
-                    {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
-                  </button>
-                  <a 
-                    href={`tel:${siteData.contact.tel1}`} 
-                    className={`inline-flex items-center gap-2 ${isDark ? 'text-white bg-white/5 border-white/10' : 'text-slate-900 bg-slate-100 border-slate-200'} font-black text-sm group hover:scale-105 transition-transform px-6 py-3 rounded-2xl border`}
-                  >
-                    Zapytaj o szczegóły <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </a>
-                </div>
-              </div>
-
-              <div className={`lg:w-1/2 rounded-2xl md:rounded-[3rem] overflow-hidden shadow-2xl ${block.id === 'cert' ? 'bg-white p-4' : 'border-4 border-white/10 aspect-[3/2] md:aspect-[4/3]'} relative z-10`}>
-                <img 
-                  src={block.image} 
-                  className={`w-full h-full ${block.id === 'cert' ? 'object-contain' : 'object-cover object-top'}`} 
-                />
-              </div>
-            </div>
-          </motion.section>
-        );
-      })}
     </main>
   );
 };
 
 const AboutPage = () => (
-  <main className="max-w-7xl mx-auto px-6 md:px-10 lg:px-14 py-20 space-y-32">
+  <>
+    <PageTitle title="O nas | Czyścimy Wentylacje" />
+    <main className="max-w-7xl mx-auto px-6 md:px-10 lg:px-14 py-20 space-y-32">
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
       <div>
         <h1 className="text-4xl md:text-6xl font-black text-slate-900 tracking-tighter mb-8 leading-tight">Eksperci od Higieny Wentylacji</h1>
@@ -832,11 +744,11 @@ const AboutPage = () => (
         </p>
         <div className="grid grid-cols-2 gap-8">
           <div>
-            <p className="text-5xl font-black text-primary italic leading-none">3+</p>
+            <p className="text-5xl font-black text-primary leading-none">3+</p>
             <p className="text-slate-400 text-xs font-bold uppercase tracking-widest mt-2">Lat doświadczenia</p>
           </div>
           <div>
-            <p className="text-5xl font-black text-primary italic leading-none">150+</p>
+            <p className="text-5xl font-black text-primary leading-none">150+</p>
             <p className="text-slate-400 text-xs font-bold uppercase tracking-widest mt-2">Zadowolonych Klientów</p>
           </div>
         </div>
@@ -856,9 +768,11 @@ const AboutPage = () => (
       </div>
     </section>
   </main>
+</>
 );
 
 const ContactPage = () => {
+  usePageTitle('Kontakt | Czyścimy Wentylacje');
   const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '', 'bot-field': '' });
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
 
@@ -913,7 +827,7 @@ const ContactPage = () => {
     <main className="max-w-7xl mx-auto px-6 md:px-10 lg:px-14 py-20">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
         <div className="space-y-12">
-          <h1 className="text-4xl md:text-6xl font-black text-slate-900 tracking-tighter leading-tight uppercase">Jesteśmy w Kontakcie</h1>
+          <h1 className="text-4xl md:text-6xl font-black text-slate-900 tracking-tighter leading-tight">Jesteśmy w Kontakcie</h1>
           <div className="space-y-8">
             <div className="flex gap-6 items-center">
               <div className="w-16 h-16 bg-primary/10 rounded-3xl flex items-center justify-center shrink-0">
@@ -1156,7 +1070,9 @@ const LegalLayout = ({ title, children }: { title: string, children: React.React
 );
 
 const PrivacyPolicy = () => (
-  <LegalLayout title="Polityka Prywatności">
+  <>
+    <PageTitle title="Polityka Prywatności | Czyścimy Wentylacje" />
+    <LegalLayout title="Polityka Prywatności">
     <section className="space-y-4">
       <h2 className="text-2xl font-black text-slate-900">1. Administrator Danych</h2>
       <p>Administratorem Twoich danych osobowych jest <strong>Agnieszka Wanicka Przedsiębiorstwo Handlowo Usługowe "Instal-Centrum"</strong> z siedzibą przy ul. Rolna 1, 43-400 Cieszyn, NIP: 5482259175, REGON: 240366063.</p>
@@ -1174,10 +1090,13 @@ const PrivacyPolicy = () => (
       <p>Strona korzysta z certyfikatu SSL, co zapewnia szyfrowanie przesyłanych danych. Wykorzystujemy również pliki cookies w celach statystycznych i funkcjonalnych, aby zapewnić poprawne działanie serwisu.</p>
     </section>
   </LegalLayout>
+</>
 );
 
 const TermsOfService = () => (
-  <LegalLayout title="Regulamin Serwisu">
+  <>
+    <PageTitle title="Regulamin | Czyścimy Wentylacje" />
+    <LegalLayout title="Regulamin Serwisu">
     <section className="space-y-4">
       <h2 className="text-2xl font-black text-slate-900">1. Postanowienia Ogólne</h2>
       <p>Niniejszy regulamin określa zasady korzystania z serwisu informacyjnego firmy Instal-Centrum, dostępnego pod adresem czyscimywentylacje.pl.</p>
@@ -1195,6 +1114,7 @@ const TermsOfService = () => (
       <p>Wszelkie uwagi dotyczące działania serwisu można zgłaszać drogą elektroniczną na adres biuro@instal-centrum.pl. Odpowiadamy na zgłoszenia w terminie do 14 dni roboczych.</p>
     </section>
   </LegalLayout>
+</>
 );
 
 export default function App() {
