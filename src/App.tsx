@@ -282,9 +282,7 @@ const Services = () => {
 };
 
 
-const VideoPlaceholder = () => {
-  const [isPlaying, setIsPlaying] = useState(false);
-
+const VideoPlaceholder = ({ onPlay }: { onPlay: () => void }) => {
   return (
     <section className="px-0 md:px-10 lg:px-14 relative">
       <div className="absolute -top-20 -left-20 w-80 h-80 bg-primary/5 blur-[100px] rounded-full pointer-events-none"></div>
@@ -292,72 +290,51 @@ const VideoPlaceholder = () => {
       <motion.div 
         initial={{ opacity: 0, scale: 0.98 }}
         whileInView={{ opacity: 1, scale: 1 }}
-        className="relative h-auto aspect-square md:aspect-auto md:h-[600px] bg-slate-900 rounded-2xl md:rounded-[4rem] overflow-hidden shadow-2xl border border-white/10 group"
+        className="relative w-full aspect-[21/9] md:aspect-video rounded-2xl md:rounded-[4rem] group cursor-pointer grid grid-cols-1 md:grid-cols-2 gap-0 md:gap-8 items-center"
+        onClick={onPlay}
       >
-        {!isPlaying ? (
-          <>
-            {/* Background Image */}
-            <img 
-              src="https://img.youtube.com/vi/IZro72G3_AA/maxresdefault.jpg"
-              alt="Video Thumbnail"
-              className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000"
-            />
-            {/* Overlays */}
-            <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent z-10"></div>
-            
-            {/* Content */}
-            <div className="absolute inset-0 z-20 flex flex-col items-center justify-center p-6 md:p-16 text-center md:text-left md:flex-row md:justify-between gap-6 md:gap-12">
-              <div className="max-w-xl space-y-4 md:space-y-8 flex flex-col justify-center">
-                <h2 className="text-2xl md:text-5xl font-black text-white tracking-tight leading-tight">
-                  Zobacz jak pracujemy
-                </h2>
-                <p className="hidden md:block text-slate-300 text-lg leading-relaxed font-bold">
-                  Nasz proces jest transparentny, czysty i niezwykle skuteczny. Wykorzystujemy kamery inspekcyjne, aby pokazać Ci różnicę "przed" i "po" wykonaniu usługi.
-                </p>
-                <ul className="hidden md:block space-y-4">
-                  {[ 
-                    "Pełna wideo-inspekcja kanałów",
-                    "Bezpyłowa technologia HEPA",
-                    "Raport techniczny po usłudze"
-                  ].map((item, i) => (
-                    <li key={i} className="flex items-center gap-3">
-                      <div className="w-6 h-6 bg-primary/20 rounded-full flex items-center justify-center shrink-0">
-                        <CheckCircle2 className="w-4 h-4 text-primary" />
-                      </div>
-                      <span className="text-white font-bold">{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="flex items-center justify-center">
-                <button 
-                  onClick={() => setIsPlaying(true)}
-                  className="w-20 h-20 md:w-32 md:h-32 bg-primary text-white rounded-full flex items-center justify-center shadow-2xl shadow-primary/40 hover:scale-110 active:scale-95 transition-all duration-300 group/btn pointer-events-auto"
-                >
-                  <Play className="w-8 h-8 md:w-14 md:h-14 fill-current ml-1.5 md:ml-2 group-hover/btn:scale-110 transition-transform" />
-                </button>
-              </div>
-            </div>
-          </>
-        ) : (
-          <div className="absolute inset-0 w-full h-full bg-black">
-            <iframe
-              className="w-full h-full"
-              src="https://www.youtube.com/embed/IZro72G3_AA?autoplay=1&controls=1&modestbranding=1&rel=0"
-              title="YouTube video player"
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            ></iframe>
-            <button 
-              onClick={() => setIsPlaying(false)}
-              className="absolute top-6 right-6 z-30 p-2 bg-black/50 hover:bg-black/80 text-white rounded-full transition-colors"
-            >
-              <X className="w-6 h-6" />
-            </button>
+        {/* Left Side: Clean Content Area (White/Site Background) */}
+        <div className="relative h-full flex flex-col justify-center p-8 md:p-12 space-y-4 md:space-y-8">
+          <div className="space-y-4">
+            <h2 className="text-2xl md:text-5xl font-black text-slate-900 tracking-tight leading-tight uppercase">
+              Zobacz <span className="text-primary">jak</span> pracujemy
+            </h2>
+            <p className="hidden md:block text-slate-600 text-lg leading-relaxed font-bold max-w-md">
+              Nasz proces jest transparentny, czysty i niezwykle skuteczny. Wykorzystujemy kamery inspekcyjne, aby pokazać Ci różnicę "przed" i "po".
+            </p>
           </div>
-        )}
+          <ul className="hidden xl:block space-y-4">
+            {[ 
+              "Pełna wideo-inspekcja kanałów",
+              "Bezpyłowa technologia HEPA",
+              "Raport techniczny po usłudze"
+            ].map((item, i) => (
+              <li key={i} className="flex items-center gap-3 group/item">
+                <div className="w-6 h-6 bg-primary/10 rounded-full flex items-center justify-center shrink-0 group-hover/item:scale-110 transition-transform">
+                  <CheckCircle2 className="w-4 h-4 text-primary" />
+                </div>
+                <span className="text-slate-700 font-bold">{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Right Side: Image with Play Button and rounded corners */}
+        <div className="relative h-full overflow-hidden rounded-2xl md:rounded-[3.5rem] shadow-xl md:shadow-2xl">
+          <img 
+            src="/assets/images/web/technik-przygotowuje-sie-do-czyszczenia-wentylacji-8.avif"
+            alt="Technik przygotowuje się do czyszczenia wentylacji"
+            className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000"
+          />
+          {/* Subtle overlay for the play button visibility */}
+          <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-500"></div>
+          
+          <div className="absolute inset-0 flex items-center justify-center z-20">
+            <div className="w-20 h-20 md:w-32 md:h-32 bg-primary text-white rounded-full flex items-center justify-center shadow-2xl shadow-primary/40 group-hover:scale-110 active:scale-95 transition-all duration-300 group/btn">
+              <Play className="w-8 h-8 md:w-14 md:h-14 fill-current ml-1.5 md:ml-2 group-hover/btn:scale-110 transition-transform" />
+            </div>
+          </div>
+        </div>
       </motion.div>
     </section>
   );
@@ -595,83 +572,125 @@ const RotobrushTech = () => (
   </section>
 );
 
-const Home = () => (
-  <>
-    <PageTitle title="Czyścimy Wentylacje | Czyszczenie i Dezynfekcja Kanałów Wentylacyjnych" />
-    <main className="max-w-7xl mx-auto py-8 space-y-12 md:space-y-32 mb-20 px-6">
-    <Hero />
-    
-    <Services />
+const Home = () => {
+  const [isDarkboxOpen, setIsDarkboxOpen] = useState(false);
 
-    <VideoPlaceholder />
+  return (
+    <>
+      <PageTitle title="Czyścimy Wentylacje | Czyszczenie i Dezynfekcja Kanałów Wentylacyjnych" />
+      <main className="max-w-7xl mx-auto py-8 space-y-12 md:space-y-32 mb-20 px-6">
+        <Hero />
+        
+        <Services />
 
-    <InfiniteRibbon />
+        <VideoPlaceholder onPlay={() => setIsDarkboxOpen(true)} />
 
-    <RotobrushTech />
+        <InfiniteRibbon />
 
-    <RealizationsGallery />
+        <RotobrushTech />
 
-    <section className="px-0 md:px-10 lg:px-14">
-      <div className="bg-slate-900 rounded-2xl md:rounded-[4rem] overflow-hidden relative border border-slate-800 shadow-[0_40px_100px_rgba(0,0,0,0.3)]">
-      <div className="grid grid-cols-1 lg:grid-cols-2">
-        <div className="p-8 md:p-20 flex flex-col justify-center gap-8 relative z-10">
-          <span className="bg-primary text-white text-[10px] font-black px-4 py-1.5 rounded-full uppercase tracking-widest w-fit">Najlepsza Technologia</span>
-          <h3 className="text-3xl md:text-5xl font-black text-white leading-tight tracking-tighter">Dlaczego wybrać naszą technologię?</h3>
-          <ul className="space-y-6">
-            {[
-              { title: "Szybka wycena", desc: "Wstępny kosztorys na podstawie ilości anemostatów." },
-              { title: "Bezpieczeństwo", desc: "Praca na dedykowanym sprzęcie DanDuct z Danii." },
-              { title: "Certyfikacja", desc: "Licencjonowany personel (European Ventilation Hygiene Association)." }
-            ].map((item, i) => (
-              <li key={i} className="flex gap-4">
-                <div className="w-12 h-12 bg-primary/20 rounded-2xl flex items-center justify-center shrink-0">
-                  <BadgeCheck className="w-6 h-6 text-primary" />
-                </div>
-                <div>
-                  <h4 className="text-white font-bold text-lg">{item.title}</h4>
-                  <p className="text-slate-400 text-sm">{item.desc}</p>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="relative min-h-[400px]">
-          <img 
-            className="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" 
-            src="/assets/images/home/jednostki-scaled.jpg" 
-            alt="Rotobrush Equipment"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/40 to-transparent"></div>
-        </div>
-        </div>
-      </div>
-    </section>
+        <RealizationsGallery />
 
-    <section>
-      <div className="text-center mb-16">
-        <h2 className="text-4xl font-black text-slate-900 tracking-tight">Głos Naszych Klientów</h2>
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {siteData.home.testimonials.map((t, i) => (
-          <div key={i} className="bg-white p-10 rounded-[3rem] border border-slate-100 flex flex-col gap-6 shadow-sm hover:shadow-xl transition-all relative">
-            <div className="absolute top-8 right-8 text-primary/10">
-              <Star className="w-16 h-16 fill-current" />
+        <section className="px-0 md:px-10 lg:px-14">
+          <div className="bg-slate-900 rounded-2xl md:rounded-[4rem] overflow-hidden relative border border-slate-800 shadow-[0_40px_100px_rgba(0,0,0,0.3)]">
+          <div className="grid grid-cols-1 lg:grid-cols-2">
+            <div className="p-8 md:p-20 flex flex-col justify-center gap-8 relative z-10">
+              <span className="bg-primary text-white text-[10px] font-black px-4 py-1.5 rounded-full uppercase tracking-widest w-fit">Najlepsza Technologia</span>
+              <h3 className="text-3xl md:text-5xl font-black text-white leading-tight tracking-tighter">Dlaczego wybrać naszą technologię?</h3>
+              <ul className="space-y-6">
+                {[
+                  { title: "Szybka wycena", desc: "Wstępny kosztorys na podstawie ilości anemostatów." },
+                  { title: "Bezpieczeństwo", desc: "Praca na dedykowanym sprzęcie DanDuct z Danii." },
+                  { title: "Certyfikacja", desc: "Licencjonowany personel (European Ventilation Hygiene Association)." }
+                ].map((item, i) => (
+                  <li key={i} className="flex gap-4">
+                    <div className="w-12 h-12 bg-primary/20 rounded-2xl flex items-center justify-center shrink-0">
+                      <BadgeCheck className="w-6 h-6 text-primary" />
+                    </div>
+                    <div>
+                      <h4 className="text-white font-bold text-lg">{item.title}</h4>
+                      <p className="text-slate-400 text-sm">{item.desc}</p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
             </div>
-            <div className="flex gap-1 text-primary">
-              {[...Array(5)].map((_, j) => <Star key={j} className="w-4 h-4 fill-current" />)}
+            <div className="relative min-h-[400px]">
+              <img 
+                className="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" 
+                src="/assets/images/home/jednostki-scaled.jpg" 
+                alt="Rotobrush Equipment"
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/40 to-transparent"></div>
             </div>
-            <p className="text-slate-700 font-bold leading-relaxed text-lg">"{t.text}"</p>
-            <div className="mt-auto">
-              <p className="font-black text-slate-900">{t.name}</p>
-              <p className="text-slate-400 text-xs font-bold uppercase tracking-widest mt-1">{t.role}</p>
             </div>
           </div>
-        ))}
-      </div>
-    </section>
-  </main>
-</>
-);
+        </section>
+
+        <section>
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-black text-slate-900 tracking-tight">Głos Naszych Klientów</h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {siteData.home.testimonials.map((t, i) => (
+              <div key={i} className="bg-white p-10 rounded-[3rem] border border-slate-100 flex flex-col gap-6 shadow-sm hover:shadow-xl transition-all relative">
+                <div className="absolute top-8 right-8 text-primary/10">
+                  <Star className="w-16 h-16 fill-current" />
+                </div>
+                <div className="flex gap-1 text-primary">
+                  {[...Array(5)].map((_, j) => <Star key={j} className="w-4 h-4 fill-current" />)}
+                </div>
+                <p className="text-slate-700 font-bold leading-relaxed text-lg">"{t.text}"</p>
+                <div className="mt-auto">
+                  <p className="font-black text-slate-900">{t.name}</p>
+                  <p className="text-slate-400 text-xs font-bold uppercase tracking-widest mt-1">{t.role}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      </main>
+
+      <AnimatePresence>
+        {isDarkboxOpen && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-10 bg-black/95 backdrop-blur-xl"
+            onClick={(e) => {
+              if (e.target === e.currentTarget) setIsDarkboxOpen(false);
+            }}
+          >
+            <button 
+              onClick={() => setIsDarkboxOpen(false)}
+              className="absolute top-6 right-6 z-50 text-white/50 hover:text-white transition-colors p-2 bg-white/5 rounded-full hover:bg-white/10"
+              aria-label="Zamknij"
+            >
+              <X className="w-8 h-8 md:w-10 md:h-10" />
+            </button>
+            
+            <motion.div 
+              initial={{ scale: 0.9, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.9, opacity: 0, y: 20 }}
+              className="w-full max-w-6xl aspect-video bg-black rounded-2xl md:rounded-[3rem] overflow-hidden shadow-[0_0_100px_rgba(0,0,0,0.8)] border border-white/10 relative"
+            >
+              <iframe
+                className="w-full h-full"
+                src="https://www.youtube.com/embed/mp6v18cqp9Y?autoplay=1&controls=1&modestbranding=1&rel=0&iv_load_policy=3"
+                title="YouTube video player"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  );
+};
 
 const ServicesPage = () => {
   usePageTitle('Nasze Usługi | Czyścimy Wentylacje');

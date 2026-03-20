@@ -29,19 +29,19 @@ export const siteData = {
         id: "mechaniczne",
         title: "Precyzyjne Czyszczenie Brush-in-Vacuum",
         desc: "Eliminujemy zanieczyszczenia u źródła. Nasz system Brush-in-Vacuum łączy mechaniczną moc szczotkowania z potężną siłą ssania bezpośrednio wewnątrz kanału.",
-        asset: "/assets/images/web/technik-czyszczenie-wentylacji-rotobrush-2.avif"
+        asset: "/assets/images/web/pracownik-czyscimy-wentylacje-przygotowanie-2.avif"
       },
       {
         id: "dezynfekcja",
         title: "Bio-Dezynfekcja Molekularna (Kenolox™)",
         desc: "Standard sterylności szpitalnej. Kenolox™ to ekologiczny środek czystości nowej generacji, który likwiduje 99.9% patogenów i nieprzyjemnych zapachów.",
-        asset: "/assets/images/web/przygotowanie-do-czyszczenia-wentylacji-rotobrush.avif"
+        asset: "/assets/images/web/pracownik-czyscimy-wentylacje-czyszczenie-gotobrush.avif"
       },
       {
         id: "inspekcja",
         title: "Wideo-Diagnostyka HD i Monitoring",
         desc: "Dowód czystości w wysokiej rozdzielczości. Przeprowadzamy pełną inspekcję wideo przed i po usłudze, dostarczając transparentny raport z higieny kanałów.",
-        asset: "/assets/images/web/technik-przygotowanie-do-czyszczenia-wentylacji-3.avif"
+        asset: "/assets/images/web/technik-przygotowuje-sie-do-czyszczenia-wentylacji-11.avif"
       },
       {
         id: "audyt",
@@ -86,19 +86,19 @@ export const siteData = {
         id: "mechaniczne",
         title: "Precyzyjne Czyszczenie Brush-in-Vacuum",
         text: "Nasza flagowa technologia czyszczenia mechanicznego. System Brush-in-Vacuum łączy mechaniczną moc rotujących szczotek z potężną siłą ssania bezpośrednio wewnątrz kanału. To jedyne rozwiązanie gwarantujące 100% usunięcia pyłu, kurzu i osadów bez ryzyka ich rozprzestrzenienia w Twoim domu. Idealne dla systemów rekuperacji i tradycyjnej wentylacji mechanicznej.",
-        asset: "/assets/images/web/technik-czysci-wentylacje-rotobrush-2.avif"
+        asset: "/assets/images/web/pracownik-czyscimy-wentylacje-przygotowanie-2.avif"
       },
       {
         id: "dezynfekcja",
         title: "Bio-Dezynfekcja Molekularna (Kenolox™)",
         text: "Ekologiczna dezynfekcja nowej generacji. Stosujemy atestowany preparat Kenolox™, który dzięki aplikacji metodą zamgławiania dociera do każdej najmniejszej szczeliny systemu. Likwidujemy 99.9% wirusów, grzybów i bakterii, zapewniając sterylność na poziomie placówek medycznych w Twoim domu lub biurze.",
-        asset: "/assets/images/web/przygotowanie-do-czyszczenia-wentylacji-rotobrush.avif"
+        asset: "/assets/images/web/pracownik-czyscimy-wentylacje-czyszczenie-gotobrush.avif"
       },
       {
         id: "inspekcja",
         title: "Wideo-Diagnostyka HD i Monitoring",
         text: "Przejrzystość, której możesz zaufać. Przed i po każdym procesie czyszczenia przeprowadzamy inspekcję wideo przy użyciu kamer endoskopowych HD. Otrzymujesz od nas pełny wgląd w stan swoich kanałów, co stanowi gwarancję rzetelnie wykonanej pracy i potwierdzenie najwyższego poziomu higieny.",
-        asset: "/assets/images/web/technik-czyszczenie-wentylacji-rotobrush-2.avif"
+        asset: "/assets/images/web/technik-przygotowuje-sie-do-czyszczenia-wentylacji-11.avif"
       },
       {
         id: "audyt",
