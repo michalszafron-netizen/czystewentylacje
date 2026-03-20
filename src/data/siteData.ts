@@ -1,58 +1,65 @@
 export const siteData = {
   contact: {
-    tel1: "+48 571 457 720",
-    tel2: "+48 606 343 275",
-    email: "biuro@czyscimywentylacje.pl",
+    tel1: "515 981 166",
+    email: "bw@instal-centrum.pl",
     address: {
-      street: "ul. Por. Halszki 33/32",
-      city: "30-611 Kraków"
+      street: "Rolna 1",
+      city: "43-400 Cieszyn"
     },
+    nip: "5482259175",
+    regon: "240366063",
     socials: {
       facebook: "https://m.facebook.com/profile.php?id=100089839187522"
     }
   },
   home: {
     hero: {
-      title: "Oddychaj Czystym Powietrzem z Freedom Czyste Wentylacje",
-      subtitle: "Profesjonalne czyszczenie i dezynfekcja kanałów wentylacyjnych. Eksperci higieny powietrza w Twoim domu i firmie.",
-      background: "/assets/images/home/Unavngivet-scaled.jpg"
+      title: "Twoje Zdrowie Zaczyna się od Czystego Powietrza",
+      subtitle: "Certyfikowani eksperci Rotobrush®. Przywracamy fabryczną czystość i sterylność systemów wentylacyjnych w domach oraz obiektach komercyjnych.",
+      background: "/assets/images/web/czyscimy-wentylacje-rotobrush-van.avif",
     },
     stats: [
-      { label: "Lat w branży", value: "10+" },
-      { label: "Klientów", value: "700+" },
-      { label: "m³ kanałów", value: "100k" },
-      { label: "Certyfikaty", value: "22" }
+      { label: "Lat w branży", value: "3+" },
+      { label: "Klientów", value: "180+" },
+      { label: "m³ kanałów", value: "25k" },
+      { label: "Certyfikaty", value: "8" }
     ],
     services: [
       {
-        title: "Czyszczenie Mechaniczne",
-        desc: "Całkowite usuwanie kurzu i zanieczyszczeń za pomocą szczotek rotacyjnych Rotobrush.",
-        asset: "/assets/images/home/Oversigts_billede-scaled.jpg"
+        id: "mechaniczne",
+        title: "Precyzyjne Czyszczenie Brush-in-Vacuum",
+        desc: "Eliminujemy zanieczyszczenia u źródła. Nasz system Brush-in-Vacuum łączy mechaniczną moc szczotkowania z potężną siłą ssania bezpośrednio wewnątrz kanału.",
+        asset: "/assets/images/web/technik-czyszczenie-wentylacji-rotobrush-2.avif"
       },
       {
-        title: "Dezynfekcja Systemów",
-        desc: "Eliminacja wirusów i grzybów atestowaną chemią Kenolox. 100% bezpieczeństwa.",
-        asset: "/assets/images/home/chemia-scaled.jpg"
+        id: "dezynfekcja",
+        title: "Bio-Dezynfekcja Molekularna (Kenolox™)",
+        desc: "Standard sterylności szpitalnej. Kenolox™ to ekologiczny środek czystości nowej generacji, który likwiduje 99.9% patogenów i nieprzyjemnych zapachów.",
+        asset: "/assets/images/web/przygotowanie-do-czyszczenia-wentylacji-rotobrush.avif"
       },
       {
-        title: "Inspekcja Kamerą",
-        desc: "Diagnostyka zanieczyszczeń kanałów kamerami endoskopowymi przed i po usłudze.",
-        asset: "/assets/images/home/Image_2-Copy-scaled.jpg"
+        id: "inspekcja",
+        title: "Wideo-Diagnostyka HD i Monitoring",
+        desc: "Dowód czystości w wysokiej rozdzielczości. Przeprowadzamy pełną inspekcję wideo przed i po usłudze, dostarczając transparentny raport z higieny kanałów.",
+        asset: "/assets/images/web/technik-przygotowanie-do-czyszczenia-wentylacji-3.avif"
       },
       {
-        title: "Inspekcja Zanieczyszczeń",
-        desc: "Badanie stanu kanałów wentylacyjnych, montaż klap rewizyjnych i kamery endoskopowe.",
-        asset: "/assets/images/uslugi/lokal-scaled.jpg"
+        id: "audyt",
+        title: "Audyt Higieniczny i Rewizja Kanałów",
+        desc: "Profesjonalna analiza stanu zanieczyszczeń. Wykorzystujemy zaawansowane narzędzia do oceny stopnia osadów i planowania optymalnego procesu sanacji.",
+        asset: "/assets/images/web/technik-przygotowanie-do-czyszczenia-wentylacji.avif"
       },
       {
-        title: "Przed Uruchomieniem",
-        desc: "Przygotowanie kanałów przed uruchomieniem systemu rekuperacji po pracach wykończeniowych.",
-        asset: "/assets/images/uslugi/rura-1.jpg"
+        id: "rekuperacja",
+        title: "Pobudowlany Rozruch Rekuperacji",
+        desc: "Zadbaj o czysty start w nowym domu. Usuwamy pył pobudowlany i resztki materiałów z systemów rekuperacji, chroniąc zdrowie Twojej rodziny.",
+        asset: "/assets/images/web/technik-przygotowuje-sie-do-czyszczenia-wentylacji-2.avif"
       },
       {
-        title: "Profesjonalny Sprzęt",
-        desc: "Używamy dedykowanego sprzętu renomowanych europejskich producentów systemów higieny.",
-        asset: "/assets/images/uslugi/jednostki-scaled.jpg"
+        id: "sprzet",
+        title: "Technologia Rotobrush® i DanDuct",
+        desc: "Najwyższy światowy standard. Pracujemy wyłącznie na certyfikowanych systemach Rotobrush® i DanDuct, gwarantując niezrównaną efektywność serwisu.",
+        asset: "/assets/images/web/pracownik-techniczny-przed-zleceniem-czyszczenia-wentylacji.avif"
       }
     ],
     testimonials: [
@@ -77,39 +84,39 @@ export const siteData = {
     detailed: [
       {
         id: "mechaniczne",
-        title: "Czyszczenie Mechaniczne Kanałów",
-        text: "Czyszczenie mechaniczne kanałów wentylacyjnych. Czyszczenie klimatyzacji w domach jednorodzinnych. Instalacje wentylacyjne nadal są zaniedbywane i czyszczone bardzo rzadko, co zmniejsza poziom higieny i komfortu jednocześnie zwiększając ryzyko pożaru. Przewody wyciągowe (wywiewy) nie tylko z łazienek i kuchni są idealnym środowiskiem do rozprzestrzeniania się ognia. Dlaczego warto zająć się czyszczeniem rur? Grzyby, bakterie czy wirusy mogą łatwo rozwijać się w rurach pełnych kurzu i tłuszczu, co może powodować nie tylko przejściowe choroby, takie jak infekcje, ale także przewlekłe, takie jak alergie czy astma. Gromadzący się brud stwarza również ryzyko ewentualnego rozprzestrzeniania się ognia pomiędzy mieszkaniami.",
-        asset: "/assets/images/uslugi/Unavngivet-scaled.jpg"
+        title: "Precyzyjne Czyszczenie Brush-in-Vacuum",
+        text: "Nasza flagowa technologia czyszczenia mechanicznego. System Brush-in-Vacuum łączy mechaniczną moc rotujących szczotek z potężną siłą ssania bezpośrednio wewnątrz kanału. To jedyne rozwiązanie gwarantujące 100% usunięcia pyłu, kurzu i osadów bez ryzyka ich rozprzestrzenienia w Twoim domu. Idealne dla systemów rekuperacji i tradycyjnej wentylacji mechanicznej.",
+        asset: "/assets/images/web/technik-czysci-wentylacje-rotobrush-2.avif"
       },
       {
         id: "dezynfekcja",
-        title: "Dezynfekcja Kenolox",
-        text: "Czyszczenie chemiczne kanałów wentylacyjnych. Dezynfekcja Środkiem Kenolox. Do dezynfekcji przewodów i kanałów wentylacyjnych używamy nowoczesnego ekologicznego środka Kenolox. Dzięki temu nasi klienci mogą się cieszyć komfortem, dobrym zdrowiem i w 100% czystym systemem wentylacji. Idealne rozwiązanie dla ludzi ceniących sobie zdrowie i dbających o swój dom.",
-        asset: "/assets/images/uslugi/chemia-scaled.jpg"
-      },
-      {
-        id: "rekuperacja",
-        title: "Serwis Jednostek (Rekuperacja)",
-        text: "Czyszczenie jednostek wentylacyjnych. Aby cały system wentylacji działał sprawnie należy zadbać o rekuperator. Gruntowne odkurzanie i mycie jednostki wraz z wymianą filtrów pomaga utrzymać “serce i mózg” systemu wentylacji w dobrej kondycji. Umów się na serwis rekuperatora wraz z czyszczeniem i skorzystaj z bezpłatnej konsultacji w sprawie regulacji wentylacji i stanu swojego systemu.",
-        asset: "/assets/images/uslugi/jednostki-scaled.jpg"
+        title: "Bio-Dezynfekcja Molekularna (Kenolox™)",
+        text: "Ekologiczna dezynfekcja nowej generacji. Stosujemy atestowany preparat Kenolox™, który dzięki aplikacji metodą zamgławiania dociera do każdej najmniejszej szczeliny systemu. Likwidujemy 99.9% wirusów, grzybów i bakterii, zapewniając sterylność na poziomie placówek medycznych w Twoim domu lub biurze.",
+        asset: "/assets/images/web/przygotowanie-do-czyszczenia-wentylacji-rotobrush.avif"
       },
       {
         id: "inspekcja",
-        title: "Inspekcja Zanieczyszczeń Kanałów",
-        text: "Warto znać stan kanałów w swoim budynku - w tym celu oferujemy usługi inspekcyjne. Zarówno diagnostyczne badania jak i badanie “przed i po” pozwala lepiej zrozumieć cały proces czyszczenia. Specjalistyczny sprzęt w tym kamery dalekiego zasięgu i roboty inspekcyjne pozwalają na odkrycie wszystkich tajemnic związanych z systemem wentylacyjnym.",
-        asset: "/assets/images/uslugi/Image_2-Copy-scaled.jpg"
+        title: "Wideo-Diagnostyka HD i Monitoring",
+        text: "Przejrzystość, której możesz zaufać. Przed i po każdym procesie czyszczenia przeprowadzamy inspekcję wideo przy użyciu kamer endoskopowych HD. Otrzymujesz od nas pełny wgląd w stan swoich kanałów, co stanowi gwarancję rzetelnie wykonanej pracy i potwierdzenie najwyższego poziomu higieny.",
+        asset: "/assets/images/web/technik-czyszczenie-wentylacji-rotobrush-2.avif"
       },
       {
-        id: "uruchomienie",
-        title: "Czyszczenie Przed Uruchomieniem",
-        text: "Czyszczenie wentylacji przed uruchomieniem systemu. Przygotowanie jakości kanałów wentylacyjnych przed uruchomieniem systemu rekuperacji. Kanały często ulegają zanieczyszczeniu w trakcie prac wykończeniowych - gładzi i szpachlowania.",
-        asset: "/assets/images/uslugi/rura-1.jpg"
+        id: "audyt",
+        title: "Audyt Higieniczny i Rewizja Kanałów",
+        text: "Profesjonalna analiza stanu zanieczyszczeń. Wykorzystujemy zaawansowane narzędzia do oceny stopnia osadów i planowania optymalnego procesu sanacji. To pierwszy krok do poprawy jakości powietrza i wyeliminowania Syndromu Chorego Budynku.",
+        asset: "/assets/images/web/technik-przygotowanie-do-czyszczenia-wentylacji.avif"
+      },
+      {
+        id: "rekuperacja",
+        title: "Pobudowlany Rozruch Rekuperacji",
+        text: "Zadbaj o czysty start w nowym domu. Usuwamy pył pobudowlany, resztki gładzi i materiałów budowlanych z systemów rekuperacji, chroniąc zdrowie Twojej rodziny i zapobiegając awariom nowej jednostki rekuperatora przed jej uruchomieniem.",
+        asset: "/assets/images/web/technik-przygotowuje-sie-do-czyszczenia-wentylacji-2.avif"
       },
       {
         id: "sprzet",
-        title: "Nasz Sprzęt i Asortyment Czyszczący",
-        text: "Wysoce zaawansowany sprzęt sprowadzany z Danii pozwala na sukces nawet w ekstremalnych warunkach. Specjaliści szkoleni za granicą i w Polsce są gwarantem dobrze wykonanej pracy.",
-        asset: "/assets/images/uslugi/lokal-scaled.jpg"
+        title: "Technologia Rotobrush® i DanDuct",
+        text: "Pracujemy wyłącznie na systemach uznanych za światowy standard Air Hygiene. Wykorzystujemy zaawansowane jednostki ssące Rotobrush® oraz duńską technologię DanDuct, co pozwala nam na skuteczną sanację nawet najbardziej skomplikowanych i rozbudowanych instalacji wentylacyjnych.",
+        asset: "/assets/images/web/pracownik-techniczny-przed-zleceniem-czyszczenia-wentylacji.avif"
       }
     ]
   }

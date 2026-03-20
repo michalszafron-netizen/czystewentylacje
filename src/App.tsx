@@ -12,16 +12,16 @@ const Logo = ({ className = "" }: { className?: string }) => {
       {!error ? (
         <img 
           src="/Zasob1.png" 
-          alt="Freedom Czyste Wentylacje" 
+          alt="Czyścimy Wentylacje" 
           className="h-7 md:h-10 max-w-full w-auto object-contain transition-transform hover:scale-105"
           onError={() => setError(true)}
         />
       ) : (
         <div className="inline-flex flex-col items-center justify-center border-[2px] border-primary rounded-[0.75rem] md:rounded-[1rem] px-3 md:px-5 py-1 md:py-2 skew-x-[-12deg] bg-transparent transition-all hover:scale-105 duration-300">
           <div className="skew-x-[12deg] flex flex-col items-center w-full">
-            <span className="text-lg md:text-3xl font-black italic tracking-tighter text-transparent leading-none mb-0.5 md:mb-1 select-none font-outfit" style={{ WebkitTextStroke: '1px #e33538' }}>Freedom</span>
+            <span className="text-lg md:text-3xl font-black italic tracking-tighter text-transparent leading-none mb-0.5 md:mb-1 select-none font-outfit" style={{ WebkitTextStroke: '1px #e33538' }}>CZYŚCIMY</span>
             <div className="w-full flex justify-between gap-0.5">
-              {"CZYSTE WENTYLACJE".split("").map((char, i) => (
+              {"CZYŚCIMY WENTYLACJE".split("").map((char, i) => (
                 <span key={i} className="text-[5px] md:text-[8px] font-black text-primary uppercase">{char === " " ? "\u00A0" : char}</span>
               ))}
             </div>
@@ -258,7 +258,7 @@ const Services = () => {
                 <h3 className="text-2xl font-black text-slate-900">{service.title}</h3>
                 <p className="text-slate-500 text-sm leading-relaxed line-clamp-3">{service.desc}</p>
                 <div className="mt-auto">
-                  <Link to="/uslugi" className="inline-flex items-center gap-2 text-primary font-black text-sm pt-2 group/link">
+                  <Link to={`/uslugi#${service.id}`} className="inline-flex items-center gap-2 text-primary font-black text-sm pt-2 group/link">
                     Szczegóły Usługi 
                     <ArrowRight className="w-4 h-4 group-hover/link:translate-x-1 transition-transform" />
                   </Link>
@@ -297,7 +297,7 @@ const VideoPlaceholder = () => (
           <h2 className="text-2xl md:text-5xl font-black text-white tracking-tight leading-tight">
             Zobacz jak pracujemy
           </h2>
-          <p className="hidden md:block text-slate-300 text-lg leading-relaxed font-bold italic">
+          <p className="hidden md:block text-slate-300 text-lg leading-relaxed font-bold">
             Nasz proces jest transparentny, czysty i niezwykle skuteczny. Wykorzystujemy kamery inspekcyjne, aby pokazać Ci różnicę "przed" i "po" wykonaniu usługi.
           </p>
           <ul className="hidden md:block space-y-4">
@@ -326,60 +326,234 @@ const VideoPlaceholder = () => (
   </section>
 );
 
-const RotobrushTech = () => (
-  <section className="px-0 md:px-10 lg:px-14 relative py-12">
-    <div className="flex flex-col items-center text-center mb-16">
-      <motion.span 
-        initial={{ opacity: 0, y: 10 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        className="text-primary font-black uppercase tracking-[0.4em] text-[10px] mb-4"
-      >
-        Napędzane przez Rotobrush®
-      </motion.span>
-      <h2 className="text-2xl md:text-5xl font-black text-slate-900 tracking-tight leading-none mb-6">
-        Technologia, która zmienia standardy
-      </h2>
-      <p className="max-w-2xl text-slate-500 font-medium italic">
-        Nie korzystamy z półśrodków. Nasz system to jedyne rozwiązanie na rynku, które gwarantuje całkowitą sterylność kanałów.
-      </p>
-    </div>
+const InfiniteRibbon = () => {
+  const images = [
+    "/assets/images/web/czyscimy-wentylacje-rotobrush-van.avif",
+    "/assets/images/web/czyscimy-wentylacje-przygotowanie-do-czyszczenia-2.avif",
+    "/assets/images/web/dwojew-pracownikow-rotobrush.avif",
+    "/assets/images/web/technician-cleaning-ventilation-with-rotobrush.avif",
+    "/assets/images/web/pracownik-techniczny-przed-zleceniem-czyszczenia-wentylacji.avif",
+    "/assets/images/web/van-rotobrush-preparation.avif",
+    "/assets/images/web/cleaning-vehicle-with-rotobrush-logo.avif",
+    "/assets/images/web/czyscimy-wentylacje-przygotowanie-do-czyszczenia-rotobrush.avif",
+    "/assets/images/web/dwoje-technikow-czyscimy-wentylacje.avif",
+    "/assets/images/web/pracownik-czyscimy-wentylacje-rotobrush.avif",
+  ];
 
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-      {[
-        {
-          title: "Brush-in-Vacuum",
-          desc: "Unikalna technologia czyszczenia mechanicznego, gdzie szczotka rotuje bezpośrednio przy wlocie ssącym. Brud nie ma szans uciec poza system.",
-          icon: Wind,
-          delay: 0.1
-        },
-        {
-          title: "Filtracja HEPA",
-          desc: "Nasz sprzęt posiada certyfikowaną filtrację HEPA, która zatrzymuje 99.97% zanieczyszczeń, bakterii i alergenów. Twoje płuca poczują różnicę.",
-          icon: Shield,
-          delay: 0.2
-        },
-        {
-          title: "Precyzja i Moc",
-          desc: "Kompaktowa budowa pozwala nam na pracę w miejscach niedostępnych dla innych firm, zachowując przy tym najwyższą siłę ssania.",
-          icon: Zap,
-          delay: 0.3
-        }
-      ].map((tech, i) => (
-        <motion.div
-          key={i}
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ delay: tech.delay }}
-          whileHover={{ y: -10 }}
-          className="bg-white/40 backdrop-blur-xl border border-slate-100 p-8 md:p-12 rounded-[2.5rem] shadow-sm hover:shadow-2xl hover:shadow-primary/5 transition-all group"
+  return (
+    <div className="relative py-10 overflow-hidden bg-slate-50 border-y border-slate-100">
+      <div className="flex whitespace-nowrap overflow-hidden">
+        <motion.div 
+          animate={{ x: ["0%", "-50%"] }}
+          transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+          className="flex gap-4 min-w-max"
         >
-          <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
-            <tech.icon className="w-8 h-8 text-primary" />
-          </div>
-          <h3 className="text-2xl font-black text-slate-900 mb-4">{tech.title}</h3>
-          <p className="text-slate-500 text-sm leading-relaxed font-bold italic">{tech.desc}</p>
+          {[...images, ...images].map((img, i) => (
+            <div key={i} className="w-64 h-40 rounded-2xl overflow-hidden shadow-md flex-shrink-0 grayscale hover:grayscale-0 transition-all duration-500">
+              <img src={img} className="w-full h-full object-cover" alt={`Work ${i}`} loading="lazy" />
+            </div>
+          ))}
         </motion.div>
-      ))}
+      </div>
+    </div>
+  );
+};
+
+const RealizationsGallery = () => {
+  const [showAll, setShowAll] = useState(false);
+  const allImages = [
+    "/assets/images/web/technician-cleaning-ducts-with-rotobrush-2.avif",
+    "/assets/images/web/czyszczenie-wentylacji-przygotowanie-sprzetu-2.avif",
+    "/assets/images/web/technik-czyszczenie-wentylacji-rotobrush-3.avif",
+    "/assets/images/web/pracownik-czyszczy-wentylacje-rotobrush.avif",
+    "/assets/images/web/dwojew-pracownicy-czyscimy-wentylacje-przygotowanie.avif",
+    "/assets/images/web/czyszczenie-wentylacji-przygotowanie-5.avif",
+    "/assets/images/web/pracownik-czyscimy-wentylacje-rotobrush-2.avif",
+    "/assets/images/web/technicy-przygotowani-do-czyszczenia-wentylacji.avif",
+    "/assets/images/web/technician-using-rotobrush.avif",
+    "/assets/images/web/toyota-proace-verso-przygotowanie-do-zlecenia.avif",
+    "/assets/images/web/czyscimy-wentylacje-przygotowanie-do-czyszczenia-3.avif",
+    "/assets/images/web/czyscimy-wentylacje-czyszczenie-instalacji-rotobrush.avif",
+  ];
+
+  const visibleImages = showAll ? allImages : allImages.slice(0, 6);
+
+  return (
+    <section className="px-6 md:px-10 lg:px-14 py-24">
+      <div className="text-center mb-16">
+        <motion.span 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          className="text-primary font-black uppercase tracking-[0.3em] text-[10px] mb-4 block"
+        >
+          Nasze Realizacje
+        </motion.span>
+        <h2 className="text-3xl md:text-5xl font-black text-slate-900 tracking-tight">Pasja w każdym detalu</h2>
+      </div>
+
+      <div className="columns-1 md:columns-2 lg:columns-3 gap-8 space-y-8">
+        {visibleImages.map((img, i) => (
+          <motion.div 
+            key={i}
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ delay: (i % 3) * 0.1 }}
+            className="break-inside-avoid rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all group"
+          >
+            <img 
+              src={img} 
+              className="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-700" 
+              alt={`Realizacja ${i}`} 
+              loading="lazy"
+            />
+          </motion.div>
+        ))}
+      </div>
+
+      <div className="mt-16 text-center">
+        <button 
+          onClick={() => setShowAll(!showAll)}
+          className="bg-slate-900 text-white px-10 py-4 rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-primary transition-all shadow-xl shadow-slate-200 active:scale-95"
+        >
+          {showAll ? "Pokaż mniej" : "Zobacz więcej realizacji"}
+        </button>
+      </div>
+    </section>
+  );
+};
+
+const RotobrushTech = () => (
+  <section className="px-4 md:px-10 lg:px-14 relative py-20 overflow-hidden">
+    {/* Background Decorative Element */}
+    <div className="absolute top-1/2 right-0 -translate-y-1/2 w-96 h-96 bg-primary/5 blur-[120px] rounded-full pointer-events-none"></div>
+
+    <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      {/* Left Content */}
+      <motion.div 
+        initial={{ opacity: 0, x: -30 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true }}
+      >
+        <div className="mb-8">
+          <motion.span 
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            className="text-primary font-black uppercase tracking-[0.4em] text-[10px] mb-4 block"
+          >
+            Napędzane przez Rotobrush®
+          </motion.span>
+          <h2 className="text-3xl md:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.1] mb-8">
+            Technologia, która <span className="text-primary italic">zmienia</span> standardy
+          </h2>
+          <p className="text-slate-500 font-medium text-lg leading-relaxed mb-12 max-w-xl border-l-4 border-primary/20 pl-6">
+            Nie korzystamy z półśrodków. Nasz system to jedyne rozwiązanie na rynku, które gwarantuje całkowitą sterylność kanałów.
+          </p>
+        </div>
+
+        <div className="space-y-8">
+          {[
+            {
+              title: "Brush-in-Vacuum",
+              desc: "Szczotka rotuje bezpośrednio przy wlocie ssącym. Brud nie ma szans uciec.",
+              icon: Wind
+            },
+            {
+              title: "Filtracja HEPA",
+              desc: "Zatrzymuje 99.97% zanieczyszczeń, bakterii i alergenów.",
+              icon: Shield
+            },
+            {
+              title: "Precyzja i Moc",
+              desc: "Kompaktowa budowa i najwyższa na rynku siła ssania.",
+              icon: Zap
+            }
+          ].map((item, i) => (
+            <motion.div 
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.1 }}
+              viewport={{ once: true }}
+              className="flex gap-6 group"
+            >
+              <div className="w-14 h-14 bg-white shadow-xl shadow-slate-200/50 rounded-2xl flex items-center justify-center shrink-0 group-hover:bg-primary group-hover:text-white transition-all duration-300">
+                <item.icon className="w-6 h-6 text-primary group-hover:text-white transition-colors" />
+              </div>
+              <div>
+                <h4 className="text-xl font-black text-slate-900 mb-1">{item.title}</h4>
+                <p className="text-slate-500 text-sm font-bold leading-relaxed">{item.desc}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </motion.div>
+
+      {/* Right Image Grid */}
+      <div className="relative h-[500px] md:h-[600px]">
+        {/* Main large image */}
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.8 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="absolute left-0 top-0 w-[70%] h-[70%] z-20"
+        >
+          <img 
+            src="/assets/images/technology/roto1.png" 
+            alt="Rotobrush Tech 1" 
+            className="w-full h-full object-cover rounded-[3rem] shadow-2xl border-4 border-white"
+          />
+        </motion.div>
+
+        {/* Top right image */}
+        <motion.div 
+          initial={{ opacity: 0, x: 50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.2, duration: 0.8 }}
+          viewport={{ once: true }}
+          className="absolute right-0 top-[10%] w-[45%] h-[40%] z-10"
+        >
+          <img 
+            src="/assets/images/technology/roto2.png" 
+            alt="Rotobrush Tech 2" 
+            className="w-full h-full object-cover rounded-[2rem] shadow-xl border-4 border-white"
+          />
+        </motion.div>
+
+        {/* Bottom left image */}
+        <motion.div 
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4, duration: 0.8 }}
+          viewport={{ once: true }}
+          className="absolute left-[5%] bottom-0 w-[40%] h-[45%] z-30"
+        >
+          <img 
+            src="/assets/images/technology/roto3.png" 
+            alt="Rotobrush Tech 3" 
+            className="w-full h-full object-cover rounded-[2rem] shadow-2xl border-4 border-white"
+          />
+        </motion.div>
+
+        {/* Bottom right image */}
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.5 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.6, duration: 0.8 }}
+          viewport={{ once: true }}
+          className="absolute right-[5%] bottom-[5%] w-[50%] h-[55%] z-20"
+        >
+          <img 
+            src="/assets/images/technology/roto4.png" 
+            alt="Rotobrush Tech 4" 
+            className="w-full h-full object-cover rounded-[2.5rem] shadow-2xl border-4 border-white"
+          />
+        </motion.div>
+
+        {/* Decorative elements */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full border-2 border-primary/10 rounded-full scale-110 pointer-events-none"></div>
+      </div>
     </div>
   </section>
 );
@@ -392,7 +566,11 @@ const Home = () => (
 
     <VideoPlaceholder />
 
+    <InfiniteRibbon />
+
     <RotobrushTech />
+
+    <RealizationsGallery />
 
     <section className="px-0 md:px-10 lg:px-14">
       <div className="bg-slate-900 rounded-2xl md:rounded-[4rem] overflow-hidden relative border border-slate-800 shadow-[0_40px_100px_rgba(0,0,0,0.3)]">
@@ -443,7 +621,7 @@ const Home = () => (
             <div className="flex gap-1 text-primary">
               {[...Array(5)].map((_, j) => <Star key={j} className="w-4 h-4 fill-current" />)}
             </div>
-            <p className="text-slate-700 font-bold italic leading-relaxed text-lg">"{t.text}"</p>
+            <p className="text-slate-700 font-bold leading-relaxed text-lg">"{t.text}"</p>
             <div className="mt-auto">
               <p className="font-black text-slate-900">{t.name}</p>
               <p className="text-slate-400 text-xs font-bold uppercase tracking-widest mt-1">{t.role}</p>
@@ -458,6 +636,21 @@ const Home = () => (
 const ServicesPage = () => {
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
   const [expandedInfoIndex, setExpandedInfoIndex] = useState<number | null>(null);
+  const { hash } = useLocation();
+
+  useEffect(() => {
+    if (hash) {
+      const id = hash.replace('#', '');
+      const element = document.getElementById(id);
+      if (element) {
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          const idx = siteData.uslugi.detailed.findIndex(s => s.id === id);
+          if (idx !== -1) setExpandedIndex(idx);
+        }, 100);
+      }
+    }
+  }, [hash]);
 
   return (
     <main className="max-w-7xl mx-auto px-6 py-20 space-y-32">
@@ -465,25 +658,25 @@ const ServicesPage = () => {
         <motion.h1 
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
-          className="text-4xl md:text-7xl font-black text-slate-900 tracking-tighter mb-8 leading-tight italic"
+          className="text-4xl md:text-7xl font-black text-slate-900 tracking-tighter mb-8 leading-tight"
         >
           Nasze Usługi i Technologia
         </motion.h1>
-        <p className="text-xl text-slate-500 leading-relaxed font-bold italic border-l-4 border-primary pl-8 py-2">
+        <p className="text-xl text-slate-500 leading-relaxed font-bold border-l-4 border-primary pl-8 py-2">
           Jesteśmy ekspertami w czyszczeniu wszelkiego rodzaju kanałów wentylacyjnych. Nasze podejście opiera się na planowaniu zapobiegawczym, profesjonalnych konsultacjach i rygorystycznej metodologii ISO.
         </p>
       </div>
 
       <div className="grid grid-cols-1 gap-24">
         {siteData.uslugi.detailed.map((s, i) => (
-          <div key={i} className={`flex flex-col ${i % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-12 items-start`}>
+          <div key={i} id={s.id} className={`flex flex-col ${i % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-12 items-start scroll-mt-32`}>
             <motion.div 
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6 }}
-              className="w-full lg:w-1/2 aspect-video rounded-[3rem] overflow-hidden shadow-2xl border-4 border-white group"
+              className="w-full lg:w-1/2 md:aspect-[4/3] aspect-[3/2] rounded-[3rem] overflow-hidden shadow-2xl border-4 border-white group"
             >
-              <img src={s.asset} alt={s.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[2s]" />
+              <img src={s.asset} alt={s.title} className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-[2s]" />
             </motion.div>
             <div className="w-full lg:w-1/2 space-y-6 pt-4">
               <span className="text-slate-600 font-black uppercase tracking-[0.2em] text-[10px] bg-slate-100 px-4 py-1.5 rounded-full border border-slate-200">Serwis {i + 1}</span>
@@ -521,44 +714,44 @@ const ServicesPage = () => {
           id: 'cert',
           tag: 'Ekspertyza',
           title: 'Certyfikat HVAC Maintenance Specialist',
-          description: 'Co sprawia, że w kwestii wentylacji można nam zaufać? Wieloletnie doświadczenie poparte Certyfikatami i Kursami pozwala nam doradzać klientom na najwyższym możliwym poziomie jeśli chodzi o wentylacje! To my byliśmy pionierami jeśli chodzi o rekuperację w Polsce. Doświadczenie pokazało nam, żeby zadbać o dobro, komfort i satysfakcję klienta potrzeba najwyższego poziomu usług. Aby właściwie zadbać o kondycję powietrza w swoim domu warto co określony okres czasu (zazwyczaj 3-5 lat) oczyścić kanały wentylacyjne, które pełne są kurzu, brudu i różnego rodzaju bakterii. Napisz do nas w celu ustalenia czy twoja wentylacja potrzebuję czyszczenia. Zrób coś dla swojego zdrowia w 2023.',
+          description: 'Nasza kompetencja jest filarem Twojego bezpieczeństwa. Posiadamy prestiżowy certyfikat HVAC Maintenance Specialist, a nasi technicy szkoleni są zarówno w Polsce, jak i za granicą (Dania, USA), aby wdrażać najbardziej zaawansowane procedury EVHA (European Ventilation Hygiene Association). To nie tylko formalność – to gwarancja, że każda operacja czyszczenia i dezynfekcji jest realizowana przez licencjonowanych ekspertów posiadających głęboką wiedzę techniczną oraz rzetelne, wieloletnie doświadczenie operacyjne.',
           image: '/assets/images/uslugi/certyfikat-scaled.jpg',
           bgColor: 'bg-slate-50'
         },
         {
           id: 'res',
-          title: 'Czyszczenie Wentylacji w domu jednorodzinnym',
-          description: 'Wentylacja to ważny element każdego domu jednorodzinnego. Jest to system, który pozwala na wymianę powietrza w pomieszczeniach, zapewniając świeże powietrze oraz usuwając zanieczyszczenia. Jednakże, co ważne, system wentylacyjny wymaga regularnego czyszczenia. Czyszczenie wentylacji to zadanie, które często jest pomijane przez właścicieli domów. Jest to jednak błąd, który może skutkować wieloma problemami. Oto kilka powodów, dlaczego warto regularnie czyścić wentylację w domu jednorodzinnym.\n\nPo pierwsze, brudna wentylacja może prowadzić do problemów zdrowotnych. Wszystkie zanieczyszczenia, które gromadzą się w systemie wentylacyjnym, mogą wpływać na jakość powietrza w pomieszczeniach. Mogą to być bakterie, wirusy, grzyby, pyłki, a nawet zanieczyszczenia chemiczne. Te substancje mogą wpływać na zdrowie domowników, szczególnie osób z chorobami układu oddechowego.\n\nPo drugie, brudna wentylacja może prowadzić do wzrostu kosztów energii. Kiedy system wentylacyjny jest zatkany, wymiana powietrza jest utrudniona, co prowadzi do wzrostu kosztów ogrzewania i klimatyzacji. Czysta wentylacja pozwala na bardziej efektywną pracę systemu, co prowadzi do niższych rachunków za energię.\n\nPo trzecie, brudna wentylacja może prowadzić do zwiększonego ryzyka pożaru. Zanieczyszczenia, takie jak kurz, mogą gromadzić się w systemie wentylacyjnym i stawać się łatwopalne. Jeśli system wentylacyjny nie jest regularnie czyszczony, może to prowadzić do powstania pożaru.',
-          image: '/assets/images/uslugi/oddech-scaled.jpg',
+          title: 'Pobudowlany Rozruch i Sanacja Rekuperacji',
+          description: 'Zadbaj o krystalicznie czysty start w nowym domu. Podczas prac wykończeniowych do kanałów rekuperacji dostają się ogromne ilości pyłu gipsowego, betonu i resztek materiałów izolacyjnych, które są groźne dla zdrowia i sprawności rekuperatora. Nasz proces precyzyjnego usuwania zanieczyszczeń pobudowlanych przywraca systemowi fabryczną sterylność, chroniąc płuca Twojej rodziny oraz gwarantując bezawaryjną pracę nowej jednostki od pierwszego uruchomienia.',
+          image: '/assets/images/web/tech-preparation-for-cleaning-2.avif',
           bgColor: 'bg-white'
         },
         {
           id: 'comm',
-          title: 'Czyszczenie wentylacji w lokalach użytkowych',
-          description: 'Czyszczenie systemów wentylacyjnych w lokalach użytkowych to kluczowy element utrzymania higieny oraz bezpieczeństwa w budynkach. Dlatego warto zwrócić uwagę na europejskie standardy ISO, które określają wymagania w zakresie czyszczenia i konserwacji systemów wentylacyjnych.\n\nISO 16890 to standard, który określa kategorie filtrów powietrza w systemach wentylacyjnych. Filtry are ważnym elementem w procesie oczyszczania powietrza, eliminując zanieczyszczenia, takie jak pyłki, wirusy, bakterie i alergeny. Filtry powinny być regularnie wymieniane, aby utrzymać czystość i skuteczność pracy systemu.\n\nISO 14644 to standard, który określa wymagania w zakresie czystości powietrza w pomieszczeniach, w tym w lokalach użytkowych. Standard ten określa klasy czystości, w których pomieszczenia mogą być podzielone, aby zapewnić oczekiwany poziom higieny i bezpieczeństwa dla pracowników oraz klientów.\n\nCzyszczenie systemów wentylacyjnych w lokalach użytkowych jest nie tylko kwestią higieny, ale także wpływa na efektywność energetyczną i bezpieczeństwo. Zatkane lub brudne systemy wentylacyjne mogą prowadzić do wzrostu kosztów energii, a nawet zwiększonego ryzyka pożaru. Dlatego zaleca się regularne czyszczenie systemów wentylacyjnych przez profesjonalistów specjalizujących się w tej dziedzinie.',
-          image: '/assets/images/uslugi/lokal-scaled.jpg',
+          title: 'Standardy ISO i Higiena w Sektorze B2B',
+          description: 'Budujemy kulturę czystego powietrza w biznesie. Zapewniamy pełną zgodność z normami ISO 16890 oraz ISO 14644 (Safe Air Zones), co jest kluczowe w biurach, restauracjach i placówkach medycznych. Profesjonalny audyt i czyszczenie kanałów to nie tylko wymóg prawny, ale realny wpływ na redukcję absencji pracowników, poprawę ich koncentracji oraz wydłużenie żywotności drogich systemów HVAC poprzez przywrócenie ich projektowej sprawności.',
+          image: '/assets/images/web/technicy-czyszczenie-wentylacji.avif',
           bgColor: 'bg-white',
           dark: false
         },
         {
           id: 'fire',
-          title: 'Ryzyko pożaru',
-          description: 'Pożary wywołane zabrudzonymi kanałami wentylacyjnymi to poważny problem, który może prowadzić do tragicznych skutków. Według danych z ostatnich lat, liczba pożarów związanych z systemami wentylacyjnymi wzrasta, co tylko podkreśla konieczność regularnego czyszczenia tych urządzeń.\n\nWiele pożarów jest wywoływanych przez gromadzenie się zanieczyszczeń, takich jak pył, kurz, ropa naftowa, a nawet pożywienie, które osadza się w kanałach wentylacyjnych. Te substancje mogą łatwo zapłonąć, zwłaszcza gdy znajdują się w pobliżu gorących źródeł, takich jak piece lub kotły. Według National Fire Protection Association, około 20% pożarów w budynkach to pożary związane z systemami wentylacyjnymi. W ciągu ostatnich lat liczba pożarów spowodowanych przez zabrudzone kanały wentylacyjne wzrosła, aż o 50%. Te statystyki są szczególnie niepokojące, biorąc pod uwagę, że większość pożarów mogłaby być łatwo uniknięta poprzez regularne czyszczenie systemów wentylacyjnych.',
-          image: '/assets/images/uslugi/pozar-1-scaled.jpg',
+          title: 'Certyfikowana Prewencja Przeciwpożarowa',
+          description: 'Bezpieczeństwo przeciwpożarowe zaczyna się wewnątrz kanałów. Akumulacja łatwopalnych pyłów i tłuszczów w instalacjach wentylacyjnych to ukryta bomba zegarowa. W razie wystąpienia ognia, zanieczyszczone kanały działają jak lont, rozprzestrzeniając pożar błyskawicznie na cały obiekt. Nasze specjalistyczne czyszczenie to najskuteczniejsza forma prewencji P-POŻ, eliminująca źródło zagrożenia i zapewniająca pełne bezpieczeństwo budynku zgodnie z wymogami ochrony mienia.',
+          image: '/assets/images/web/technician-cleaning-ventilation-with-rotobrush.avif',
           bgColor: 'bg-white'
         },
         {
           id: 'dis',
-          title: 'Top pielęgnacja i najwyższy poziom komfortu - Dezynfekcja',
-          description: 'Dezynfekcja kanałów wentylacyjnych to ważny proces, który pomaga zapobiegać rozprzestrzenianiu się chorób i zapewnia czyste powietrze w pomieszczeniach. Kanały wentylacyjne są miejscem, gdzie osadza się wiele zanieczyszczeń, w tym bakterii, grzybów, wirusów i innych substansji szkodliwych dla zdrowia. Dlatego tak ważne jest, aby regularnie dezynfekować kanały wentylacyjne w celu zapewnienia czystego powietrza i ochrony zdrowia ludzi.\n\nProces dezynfekcji kanałów wentylacyjnych zaczyna się od dokładnego oczyszczenia kanałów z zanieczyszczeń i osadów, które gromadzą się wewnątrz. Następnie, specjalistyczne środki dezynfekcyjne są wtryskiwane wewnątrz kanałów, aby zniszczyć bakterie, wirusy i grzyby, które mogą się tam znajdować. Dezynfekcja kanałów wentylacyjnych zapewnia czyste powietrze w pomieszczeniach, co jest szczególnie ważne dla osób cierpiących na alergie, astmę i inne choroby układu oddechowego.',
-          image: '/assets/images/uslugi/chemia-scaled.jpg',
+          title: 'Bio-Dezynfekcja Molekularna (Kenolox™)',
+          description: 'Standard sterylności szpitalnej w Twoim zasięgu. Wykorzystujemy Kenolox™ – światowego lidera ekologicznej dezynfekcji molekularnej, który likwiduje 99.9% patogenów (wirusy, bakterie, zarodniki grzybów). Dzięki metodzie precyzyjnego zamgławiania po mechanicznym oczyszczeniu, preparat dociera do najgłębszych zakamarków instalacji, pozostawiając system wolny od mikroorganizmów i nieprzyjemnych zapachów, przy zachowaniu pełnego bezpieczeństwa dla alergików.',
+          image: '/assets/images/web/przygotowanie-do-czyszczenia-wentylacji-rotobrush.avif',
           bgColor: 'bg-slate-50'
         },
         {
           id: 'sbs',
-          title: 'Syndrom chorego budynku',
-          description: 'Syndrom chorego budynku to zjawisko, które polega na występowaniu u ludzi objawów chorobowych związanych z przebywaniem w zamkniętych pomieszczeniach. Objawy te są zwykle trudne do zdiagnozowania i mogą obejmować m.in. bóle głowy, problemy z oddychaniem, problemy ze skórą, osłabienie i ogólne złe samopoczucie. Wiele badań wskazuje, że syndrom chorego budynku może być spowodowany zanieczyszczeniem powietrza wewnątrz budynku.\n\nWnętrza budynków są zamknięte i klimatyzowane, co powoduje, że powietrze wewnątrz staje się narażone na różne zanieczyszczenia, takie jak kurz, pyłki, pleśnie, wirusy i bakterie. Te zanieczyszczenia mogą wpływać na jakość powietrza i spowodować objawy chorobowe u osób, które przebywają w budynku. Ponadto, wiele budynków jest szczelnie izolowanych, co powoduje, że powietrze jest recyrkulowane i nie ma dostępu do świeżego powietrza z zewnątrz. Poprawa jakości powietrza to inwestycja w zdrowie i dobre samopoczucie, które przyczyni się do zwiększenia produktywności i efektywności pracy w budynkach.',
-          image: '/assets/images/uslugi/syndrom-scaled.jpg',
+          title: 'Syndrom Chorego Budynku (SBS)',
+          description: 'Gdy budynek zaczyna szkodzić – my przywracamy mu równowagę. Syndrom Chorego Budynku (Sick Building Syndrome) to realne zagrożenie wynikające z akumulacji toksyn i bio-filmu w rzadko serwisowanych kanałach. Alergie, bóle głowy i chroniczne zmęczenie to często bezpośredni wynik zaniedbanej wentylacji. Nasza kompletna sanacja systemów HVAC eliminuje mikroorganizmy u źródła, przywracając higienę pracy i komfort życia, który bezpośrednio przekłada się na zdrowie użytkowników.',
+          image: '/assets/images/web/technik-przygotowanie-do-czyszczenia-wentylacji-3.avif',
           bgColor: 'bg-white'
         }
       ].map((block, idx) => {
@@ -567,6 +760,7 @@ const ServicesPage = () => {
 
         return (
           <motion.section 
+            id={block.id}
             key={block.id}
             whileHover={{ y: -5 }}
             transition={{ duration: 0.4 }}
@@ -580,7 +774,7 @@ const ServicesPage = () => {
                     {block.tag}
                   </span>
                 )}
-                <h2 className={`text-4xl font-black ${isDark ? 'text-white' : 'text-slate-900'} tracking-tight italic`}>
+                <h2 className={`text-4xl font-black ${isDark ? 'text-white' : 'text-slate-900'} tracking-tight`}>
                   {block.title}
                 </h2>
                 
@@ -614,10 +808,10 @@ const ServicesPage = () => {
                 </div>
               </div>
 
-              <div className={`lg:w-1/2 rounded-2xl md:rounded-[3rem] overflow-hidden shadow-2xl ${block.id === 'cert' ? 'bg-white p-4' : 'border-4 border-white/10 aspect-video'} relative z-10`}>
+              <div className={`lg:w-1/2 rounded-2xl md:rounded-[3rem] overflow-hidden shadow-2xl ${block.id === 'cert' ? 'bg-white p-4' : 'border-4 border-white/10 aspect-[3/2] md:aspect-[4/3]'} relative z-10`}>
                 <img 
                   src={block.image} 
-                  className={`w-full h-full ${block.id === 'cert' ? 'object-contain' : 'object-cover'}`} 
+                  className={`w-full h-full ${block.id === 'cert' ? 'object-contain' : 'object-cover object-top'}`} 
                 />
               </div>
             </div>
@@ -632,32 +826,32 @@ const AboutPage = () => (
   <main className="max-w-7xl mx-auto px-6 md:px-10 lg:px-14 py-20 space-y-32">
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
       <div>
-        <h1 className="text-4xl md:text-6xl font-black text-slate-900 tracking-tighter mb-8 leading-tight italic">Gwarancja Jakości Powietrza</h1>
+        <h1 className="text-4xl md:text-6xl font-black text-slate-900 tracking-tighter mb-8 leading-tight">Eksperci od Higieny Wentylacji</h1>
         <p className="text-xl text-slate-600 leading-relaxed mb-10">
-          Jesteśmy zespołem profesjonalistów z wieloletnim doświadczeniem w branży czyszczenia systemów HVAC. Nasza firma to połączenie globalnej technologii Rotobrush z lokalnym, rzetelnym podejściem do klienta.
+          W Czyste Wentylacje nie tylko serwisujemy kanały – przywracamy budynkom ich naturalną zdolność do oddychania. Nasza historia to ewolucja od fascynacji technologią Rotobrush® do pozycji lidera w dziedzinie zaawansowanej sanacji systemów HVAC. Łączymy amerykańską myśl techniczną z polską rzetelnością, oferując standardy higieny, które wyznaczają nowy poziom bezpieczeństwa.
         </p>
         <div className="grid grid-cols-2 gap-8">
           <div>
-            <p className="text-5xl font-black text-primary italic leading-none">8+</p>
-            <p className="text-slate-400 text-xs font-bold uppercase tracking-widest mt-2">Lat w branży</p>
+            <p className="text-5xl font-black text-primary italic leading-none">3+</p>
+            <p className="text-slate-400 text-xs font-bold uppercase tracking-widest mt-2">Lat doświadczenia</p>
           </div>
           <div>
-            <p className="text-5xl font-black text-primary italic leading-none">583+</p>
-            <p className="text-slate-400 text-xs font-bold uppercase tracking-widest mt-2">Klientów</p>
+            <p className="text-5xl font-black text-primary italic leading-none">150+</p>
+            <p className="text-slate-400 text-xs font-bold uppercase tracking-widest mt-2">Zadowolonych Klientów</p>
           </div>
         </div>
       </div>
       <div className="rounded-[4rem] overflow-hidden shadow-2xl border-12 border-white rotate-2 bg-slate-200 aspect-[3/4]">
-        <img src="/assets/images/o-nas/ekipa-scaled.jpg" className="w-full h-full object-cover" />
+        <img src="/assets/images/web/czyscimy-wentylacje-czyszczenie-instalacji-rotobrush.avif" className="w-full h-full object-cover" />
       </div>
     </div>
 
     <section className="bg-slate-900 rounded-3xl md:rounded-[4rem] p-8 md:p-24 text-white relative overflow-hidden">
       <div className="absolute top-0 left-0 w-96 h-96 bg-primary/10 blur-[150px] rounded-full pointer-events-none"></div>
       <div className="max-w-3xl mx-auto text-center space-y-8 relative z-10">
-        <h2 className="text-4xl font-black italic tracking-tight uppercase">Nasza Ekipa do Zadań Specjalnych</h2>
+        <h2 className="text-4xl font-black tracking-tight uppercase">Nasze Podejście: Bez Kompromisów</h2>
         <p className="text-lg text-slate-400 leading-relaxed font-bold">
-          Od momentu przyjęcia zlecenia nasi specjaliści zaczynają pracę nad Twoimi potrzebami. Planowanie, wykonanie i inspekcja – wszystko profesionalnie, bezpiecznie i z dbałością o detale.
+          Od momentu przyjęcia zlecenia, nasz zespół ekspertów koncentruje się na specyficznych potrzebach Twojej instalacji. Wykorzystujemy najnowocześniejszy park maszynowy Rotobrush® i rygorystyczne procedury kontrolne, aby zapewnić efekt, który jest mierzalny, trwały i w pełni bezpieczny.
         </p>
       </div>
     </section>
@@ -719,16 +913,15 @@ const ContactPage = () => {
     <main className="max-w-7xl mx-auto px-6 md:px-10 lg:px-14 py-20">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
         <div className="space-y-12">
-          <h1 className="text-4xl md:text-6xl font-black text-slate-900 tracking-tighter leading-tight italic uppercase">Jesteśmy w Kontakcie</h1>
+          <h1 className="text-4xl md:text-6xl font-black text-slate-900 tracking-tighter leading-tight uppercase">Jesteśmy w Kontakcie</h1>
           <div className="space-y-8">
             <div className="flex gap-6 items-center">
               <div className="w-16 h-16 bg-primary/10 rounded-3xl flex items-center justify-center shrink-0">
                 <Phone className="w-8 h-8 text-primary" />
               </div>
               <div>
-                <p className="text-slate-400 text-xs font-black uppercase tracking-widest mb-1">Telefon</p>
+                <p className="text-slate-400 text-xs font-black uppercase tracking-widest mb-1">Kontakt</p>
                 <p className="text-2xl font-black text-slate-900">{siteData.contact.tel1}</p>
-                <p className="text-xl font-bold text-slate-500 mt-1">{siteData.contact.tel2}</p>
               </div>
             </div>
             <div className="flex gap-6 items-center">
@@ -748,13 +941,18 @@ const ContactPage = () => {
                 <p className="text-slate-400 text-xs font-black uppercase tracking-widest mb-1">Siedziba</p>
                 <p className="text-2xl font-black text-slate-900">{siteData.contact.address.street}</p>
                 <p className="text-xl font-bold text-slate-500 mt-1">{siteData.contact.address.city}</p>
+                <div className="mt-4 pt-4 border-t border-slate-100 space-y-1">
+                  <p className="text-xs font-black text-slate-400 uppercase tracking-widest">Dane firmy</p>
+                  <p className="text-sm font-bold text-slate-600">NIP: {siteData.contact.nip}</p>
+                  <p className="text-sm font-bold text-slate-600">REGON: {siteData.contact.regon}</p>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
         <div className="bg-white p-6 md:p-16 rounded-3xl md:rounded-[3rem] border border-slate-100 shadow-2xl space-y-8">
-          <h3 className="text-3xl font-black text-slate-900 italic tracking-tight">Wyślij Zapytanie</h3>
+          <h3 className="text-3xl font-black text-slate-900 tracking-tight">Wyślij Zapytanie</h3>
           <p className="text-slate-500 font-bold">Skontaktujemy się z Tobą w ciągu 24 godzin!</p>
           
           {status === 'success' ? (
@@ -827,6 +1025,18 @@ const ContactPage = () => {
                 <p className="text-primary font-bold text-sm">Wystąpił błąd podczas wysyłania. Spróbuj ponownie później.</p>
               )}
 
+              <div className="flex gap-3 items-start p-4 bg-slate-50 rounded-xl border border-slate-200">
+                <input 
+                  type="checkbox" 
+                  required 
+                  id="rodo"
+                  className="mt-1 w-4 h-4 rounded border-slate-300 text-primary focus:ring-primary/20 accent-primary" 
+                />
+                <label htmlFor="rodo" className="text-[11px] text-slate-500 leading-tight font-medium">
+                  Wyrażam zgodę na przetwarzanie moich danych osobowych w celu obsługi zapytania. Administratorem danych jest P.H.U. "Instal-Centrum" Agnieszka Wanicka. Więcej w <Link to="/polityka-prywatnosci" className="text-primary underline">Polityce Prywatności</Link>.
+                </label>
+              </div>
+
               <button 
                 disabled={status === 'sending'}
                 className="w-full bg-primary hover:bg-red-700 disabled:bg-slate-300 text-white py-5 rounded-2xl text-lg font-black transition-all shadow-xl shadow-primary/20 uppercase tracking-widest"
@@ -841,63 +1051,150 @@ const ContactPage = () => {
   );
 };
 
-const Footer = () => (
-  <footer className="px-4 md:px-8 lg:px-12 pb-8 md:pb-12 relative overflow-hidden">
-    <div className="absolute -bottom-20 left-1/2 -translate-x-1/2 w-full h-40 bg-primary/5 blur-[100px] pointer-events-none"></div>
-    <div className="bg-slate-900 rounded-2xl md:rounded-[4rem] p-8 md:p-20 text-white relative z-10">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 mb-12 md:mb-16">
-        <div className="col-span-1 md:col-span-1">
-          <div className="mb-8">
-            <Logo />
+const Footer = () => {
+  const [isMapHovered, setIsMapHovered] = useState(false);
+  
+  return (
+    <footer className="px-4 md:px-8 lg:px-12 pb-8 md:pb-12 relative overflow-hidden">
+      <div className="absolute -bottom-20 left-1/2 -translate-x-1/2 w-full h-40 bg-primary/5 blur-[100px] pointer-events-none"></div>
+      <div className="bg-slate-900 rounded-2xl md:rounded-[4rem] p-8 md:p-16 text-white relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 md:gap-12 mb-12 md:mb-16">
+          <div className="col-span-1 lg:col-span-3">
+            <div className="mb-8">
+              <Logo />
+            </div>
+            <p className="text-slate-400 text-sm leading-relaxed font-bold">
+              Ekspert w technologii czyszczenia kanałów wentylacyjnych i klimatyzacyjnych. Prawdziwa higiena, certyfikowana jakość.
+            </p>
+            <div className="mt-8 pt-8 border-t border-slate-800 flex flex-col gap-1">
+              <p className="text-[10px] text-slate-500 font-black uppercase tracking-widest mb-1">Dane firmy</p>
+              <span className="text-xs font-bold text-slate-400">NIP: {siteData.contact.nip}</span>
+              <span className="text-xs font-bold text-slate-400">REGON: {siteData.contact.regon}</span>
+            </div>
           </div>
-          <p className="text-slate-400 text-sm leading-relaxed font-bold italic">
-            Ekspert w technologii czyszczenia kanałów wentylacyjnych i klimatyzacyjnych. Prawdziwa higiena, certyfikowana jakość.
-          </p>
+          <div className="col-span-1 lg:col-span-2">
+            <h4 className="font-black text-white mb-8 tracking-widest text-xs uppercase text-primary">Linki</h4>
+            <ul className="space-y-4 text-sm text-slate-400 font-bold">
+              <li><Link className="hover:text-primary transition-colors" to="/">Główna</Link></li>
+              <li><Link className="hover:text-primary transition-colors" to="/uslugi">Nasze Usługi</Link></li>
+              <li><Link className="hover:text-primary transition-colors" to="/o-nas">O nas</Link></li>
+              <li><Link className="hover:text-primary transition-colors" to="/kontakt">Kontakt</Link></li>
+            </ul>
+          </div>
+          <div className="col-span-1 lg:col-span-4">
+            <h4 className="font-black text-white mb-8 tracking-widest text-xs uppercase text-primary">Nasza Siedziba</h4>
+            <div 
+              className="rounded-2xl overflow-hidden border border-white/5 shadow-2xl h-48 bg-slate-800 relative cursor-pointer"
+              onMouseEnter={() => setIsMapHovered(true)}
+              onMouseLeave={() => setIsMapHovered(false)}
+            >
+              <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2577.1415383694803!2d18.6821642!3d49.764594499999994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x471403a251be994d%3A0x491f1d4717061572!2sRolna%201%2C%2043-400%20Cieszyn!5e0!3m2!1sen!2spl!4v1773947958893!5m2!1sen!2spl"
+                width="100%" 
+                height="100%" 
+                style={{ 
+                  border: 0, 
+                  filter: isMapHovered 
+                    ? 'grayscale(0) brightness(1) contrast(1)' 
+                    : 'grayscale(0.5) brightness(0.8) contrast(1.1)',
+                  transition: 'all 0.7s cubic-bezier(0.4, 0, 0.2, 1)'
+                }} 
+                allowFullScreen={true} 
+                loading="lazy" 
+                referrerPolicy="no-referrer-when-downgrade"
+              ></iframe>
+            </div>
+          </div>
+          <div className="col-span-1 lg:col-span-3">
+            <h4 className="font-black text-white mb-8 tracking-widest text-xs uppercase text-primary">Kontakt</h4>
+            <ul className="space-y-4 text-sm text-slate-400 font-bold">
+              <li className="flex items-center gap-3">
+                <Phone className="w-4 h-4 text-primary" />
+                {siteData.contact.tel1}
+              </li>
+              <li className="flex items-center gap-3">
+                <Mail className="w-4 h-4 text-primary" />
+                {siteData.contact.email}
+              </li>
+              <li className="flex items-center gap-3">
+                <MapPin className="w-4 h-4 text-primary" />
+                {siteData.contact.address.city}
+              </li>
+            </ul>
+          </div>
         </div>
-        <div>
-          <h4 className="font-black text-white mb-8 tracking-widest text-xs uppercase">Szybkie Linki</h4>
-          <ul className="space-y-4 text-sm text-slate-400 font-bold">
-            <li><Link className="hover:text-primary transition-colors" to="/">Główna</Link></li>
-            <li><Link className="hover:text-primary transition-colors" to="/uslugi">Nasze Usługi</Link></li>
-            <li><Link className="hover:text-primary transition-colors" to="/o-nas">O nas</Link></li>
-            <li><Link className="hover:text-primary transition-colors" to="/kontakt">Kontakt</Link></li>
-          </ul>
-        </div>
-        <div>
-          <h4 className="font-black text-white mb-8 tracking-widest text-xs uppercase">Social Media</h4>
-          <ul className="space-y-4 text-sm text-slate-400 font-bold">
-            <li><a className="hover:text-primary transition-colors" href={siteData.contact.socials.facebook}>Facebook</a></li>
-            <li><a className="hover:text-primary transition-colors" href="#">LinkedIn</a></li>
-            <li><a className="hover:text-primary transition-colors" href="#">Instagram</a></li>
-          </ul>
-        </div>
-        <div>
-          <h4 className="font-black text-white mb-8 tracking-widest text-xs uppercase">Kontakt</h4>
-          <ul className="space-y-4 text-sm text-slate-400 font-bold">
-            <li className="flex items-center gap-3">
-              <Phone className="w-4 h-4 text-primary" />
-              {siteData.contact.tel1}
-            </li>
-            <li className="flex items-center gap-3">
-              <Mail className="w-4 h-4 text-primary" />
-              {siteData.contact.email}
-            </li>
-            <li className="flex items-center gap-3">
-              <MapPin className="w-4 h-4 text-primary" />
-              {siteData.contact.address.city}
-            </li>
-          </ul>
+        <div className="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-6 text-[9px] text-slate-500 font-black uppercase tracking-[0.2em]">
+          <div className="flex flex-col md:flex-row items-center gap-4 text-center md:text-left">
+            <p>© 2026 Czyścimy Wentylacje. Prawa zastrzeżone.</p>
+            <span className="hidden md:block opacity-20">|</span>
+            <a 
+              href="https://wideart.agency" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="hover:text-primary transition-colors opacity-60 hover:opacity-100"
+            >
+              Realizacja: Wideart.agency
+            </a>
+          </div>
+          <div className="flex gap-8">
+            <Link className="hover:text-white" to="/polityka-prywatnosci">Polityka prywatności</Link>
+            <Link className="hover:text-white" to="/regulamin">Regulamin</Link>
+          </div>
         </div>
       </div>
-      <div className="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] text-slate-500 font-black uppercase tracking-[0.2em]">
-        <p>© 2026 Freedom Czyste Wentylacje. Prawa zastrzeżone.</p>
-        <div className="flex gap-8">
-          <a className="hover:text-white" href="#">Polityka prywatności</a>
-          <a className="hover:text-white" href="#">Regulamin</a>
-        </div>
-      </div>
+    </footer>
+  );
+};
+
+const LegalLayout = ({ title, children }: { title: string, children: React.ReactNode }) => (
+  <main className="max-w-4xl mx-auto px-6 py-20">
+    <h1 className="text-4xl md:text-6xl font-black text-slate-900 tracking-tighter mb-12">{title}</h1>
+    <div className="prose prose-slate max-w-none space-y-8 text-slate-600 font-medium leading-relaxed">
+      {children}
     </div>
-  </footer>
+  </main>
+);
+
+const PrivacyPolicy = () => (
+  <LegalLayout title="Polityka Prywatności">
+    <section className="space-y-4">
+      <h2 className="text-2xl font-black text-slate-900">1. Administrator Danych</h2>
+      <p>Administratorem Twoich danych osobowych jest <strong>Agnieszka Wanicka Przedsiębiorstwo Handlowo Usługowe "Instal-Centrum"</strong> z siedzibą przy ul. Rolna 1, 43-400 Cieszyn, NIP: 5482259175, REGON: 240366063.</p>
+    </section>
+    <section className="space-y-4">
+      <h2 className="text-2xl font-black text-slate-900">2. Zakres i Cel Przetwarzania</h2>
+      <p>Przetwarzamy dane podane dobrowolnie w formularzu kontaktowym (imię, adres e-mail, temat, treść wiadomości) wyłącznie w celu udzielenia odpowiedzi na Twoje zapytanie oraz ewentualnego nawiązania współpracy.</p>
+    </section>
+    <section className="space-y-4">
+      <h2 className="text-2xl font-black text-slate-900">3. Twoje Prawa</h2>
+      <p>Masz prawo do wglądu w swoje dane, ich poprawiania, żądania ograniczenia przetwarzania lub całkowitego usunięcia danych z naszej bazy. W tym celu skontaktuj się z nami pod adresem: <strong>biuro@instal-centrum.pl</strong>.</p>
+    </section>
+    <section className="space-y-4">
+      <h2 className="text-2xl font-black text-slate-900">4. Bezpieczeństwo i Cookies</h2>
+      <p>Strona korzysta z certyfikatu SSL, co zapewnia szyfrowanie przesyłanych danych. Wykorzystujemy również pliki cookies w celach statystycznych i funkcjonalnych, aby zapewnić poprawne działanie serwisu.</p>
+    </section>
+  </LegalLayout>
+);
+
+const TermsOfService = () => (
+  <LegalLayout title="Regulamin Serwisu">
+    <section className="space-y-4">
+      <h2 className="text-2xl font-black text-slate-900">1. Postanowienia Ogólne</h2>
+      <p>Niniejszy regulamin określa zasady korzystania z serwisu informacyjnego firmy Instal-Centrum, dostępnego pod adresem czyscimywentylacje.pl.</p>
+    </section>
+    <section className="space-y-4">
+      <h2 className="text-2xl font-black text-slate-900">2. Charakter Serwisu</h2>
+      <p>Serwis ma charakter informacyjno-ofertowy. Prezentuje zakres usług związanych z czyszczeniem i sanacją instalacji wentylacyjnych oraz umożliwia kontakt z firmą poprzez formularz.</p>
+    </section>
+    <section className="space-y-4">
+      <h2 className="text-2xl font-black text-slate-900">3. Prawa Autorskie</h2>
+      <p>Wszelkie treści, zdjęcia oraz logotypy zamieszczone na stronie są własnością Administratora lub są wykorzystywane na podstawie stosownych licencji. Kopiowanie i wykorzystywanie materiałów bez zgody jest zabronione.</p>
+    </section>
+    <section className="space-y-4">
+      <h2 className="text-2xl font-black text-slate-900">4. Kontakt i Reklamacje</h2>
+      <p>Wszelkie uwagi dotyczące działania serwisu można zgłaszać drogą elektroniczną na adres biuro@instal-centrum.pl. Odpowiadamy na zgłoszenia w terminie do 14 dni roboczych.</p>
+    </section>
+  </LegalLayout>
 );
 
 export default function App() {
@@ -914,6 +1211,8 @@ export default function App() {
             <Route path="/uslugi" element={<ServicesPage />} />
             <Route path="/o-nas" element={<AboutPage />} />
             <Route path="/kontakt" element={<ContactPage />} />
+            <Route path="/polityka-prywatnosci" element={<PrivacyPolicy />} />
+            <Route path="/regulamin" element={<TermsOfService />} />
           </Routes>
         </div>
         <Footer />
