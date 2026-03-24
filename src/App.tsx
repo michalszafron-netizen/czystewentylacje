@@ -16,6 +16,14 @@ const PageTitle = ({ title }: { title: string }) => {
   return null;
 };
 
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+};
+
 const Logo = ({ className = "" }: { className?: string }) => {
   const [error, setError] = useState(false);
   
@@ -143,12 +151,12 @@ const Hero = () => (
       initial={{ opacity: 0, scale: 0.98 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.8 }}
-      className="w-full h-auto aspect-square md:aspect-auto md:h-[650px] rounded-2xl md:rounded-[3rem] overflow-hidden relative group shadow-2xl border border-white/10 bg-slate-900"
+      className="w-full h-auto aspect-[4/5] md:aspect-auto md:h-[650px] rounded-2xl md:rounded-[3rem] overflow-hidden relative group shadow-2xl border border-white/10 bg-slate-900"
     >
       {/* YouTube Video Background */}
       <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none">
         <iframe
-          className="absolute top-1/2 left-1/2 w-[177.78%] h-[177.78%] min-w-full min-h-full -translate-x-1/2 -translate-y-1/2 opacity-70"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[222%] h-full md:w-[177.78%] md:h-[177.78%] min-w-full min-h-full opacity-80 md:opacity-70"
           src="https://www.youtube.com/embed/IZro72G3_AA?autoplay=1&loop=1&playlist=IZro72G3_AA&mute=1&controls=0&modestbranding=1&rel=0&showinfo=0&iv_load_policy=3&disablekb=1"
           title="Czyścimy Wentylacje - video"
           allow="autoplay; encrypted-media"
@@ -166,7 +174,7 @@ const Hero = () => (
           transition={{ delay: 0.2 }}
           className="mb-8 md:mb-12"
         >
-          <span className="bg-primary text-white text-[10px] font-black uppercase tracking-[0.4em] px-5 py-2 rounded-full shadow-lg shadow-primary/20">
+          <span className="bg-primary text-white text-[9px] md:text-[10px] font-black uppercase tracking-[0.2em] md:tracking-[0.4em] px-4 md:px-5 py-2 rounded-full shadow-lg shadow-primary/20">
             Lider Higieny Powietrza
           </span>
         </motion.div>
@@ -181,7 +189,7 @@ const Hero = () => (
           {siteData.home.hero.subtitle}
         </p>
         
-        <div className="flex flex-wrap justify-center md:justify-start gap-5">
+        <div className="flex flex-wrap justify-center md:justify-start gap-5 mb-14 md:mb-0">
           <Link to="/kontakt" className="bg-primary hover:bg-black text-white px-6 py-3 md:px-8 md:py-4 rounded-2xl text-sm md:text-base font-bold transition-all flex items-center gap-3 shadow-xl shadow-primary/30 active:scale-95">
             Zarezerwuj Termin
             <Calendar className="w-5 h-5" />
@@ -221,8 +229,8 @@ const Services = () => {
   };
 
   return (
-    <section className="pt-32 pb-10">
-      <div className="flex items-end justify-between mb-16 px-0 md:px-10 lg:px-14">
+    <section className="pt-28 md:pt-32 pb-10">
+      <div className="flex items-end justify-between mb-8 md:mb-16 px-0 md:px-10 lg:px-14">
         <div className="max-w-2xl">
           <motion.span 
             initial={{ opacity: 0 }}
@@ -231,9 +239,9 @@ const Services = () => {
           >
             Nasze Specjalizacje
           </motion.span>
-          <h2 className="text-3xl md:text-5xl font-black text-slate-900 tracking-tight leading-none">Technologia w Służbie Zdrowia</h2>
+          <h2 className="text-3xl md:text-5xl font-black text-slate-900 tracking-tight leading-none">Innowacyjne Standardy Higieny HVAC</h2>
         </div>
-        <div className="flex gap-3">
+        <div className="hidden md:flex gap-3">
           <button onClick={() => scroll('left')} className="w-14 h-14 rounded-2xl border border-slate-200 flex items-center justify-center hover:bg-slate-50 hover:border-primary transition-all group active:scale-90">
             <ArrowLeft className="w-6 h-6 text-slate-400 group-hover:text-primary" />
           </button>
@@ -245,7 +253,7 @@ const Services = () => {
 
       <div 
         id="services-carousel"
-        className="flex gap-8 overflow-x-auto pb-12 no-scrollbar snap-x snap-mandatory px-0 md:px-10 lg:px-14 scroll-smooth"
+        className="grid grid-cols-1 md:flex md:overflow-x-auto gap-6 md:gap-8 pb-12 no-scrollbar md:snap-x md:snap-mandatory px-0 md:px-10 lg:px-14 scroll-smooth"
       >
         {siteData.home.services.map((service, i) => (
           <motion.div 
@@ -253,7 +261,7 @@ const Services = () => {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.1 }}
-            className="min-w-[85%] md:min-w-[45%] lg:min-w-[calc((100%-64px)/3)] snap-center"
+            className="w-full md:min-w-[45%] lg:min-w-[calc((100%-64px)/3)] md:snap-center"
           >
             <motion.div 
               whileHover={{ y: -8, transition: { duration: 0.3 } }}
@@ -290,7 +298,7 @@ const VideoPlaceholder = ({ onPlay }: { onPlay: () => void }) => {
       <motion.div 
         initial={{ opacity: 0, scale: 0.98 }}
         whileInView={{ opacity: 1, scale: 1 }}
-        className="relative w-full aspect-[21/9] md:aspect-video rounded-2xl md:rounded-[4rem] group cursor-pointer grid grid-cols-1 md:grid-cols-2 gap-0 md:gap-8 items-center"
+        className="relative w-full aspect-auto md:aspect-video rounded-2xl md:rounded-[4rem] group cursor-pointer grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-8 items-center"
         onClick={onPlay}
       >
         {/* Left Side: Clean Content Area (White/Site Background) */}
@@ -320,7 +328,7 @@ const VideoPlaceholder = ({ onPlay }: { onPlay: () => void }) => {
         </div>
 
         {/* Right Side: Image with Play Button and rounded corners */}
-        <div className="relative h-full overflow-hidden rounded-2xl md:rounded-[3.5rem] shadow-xl md:shadow-2xl">
+        <div className="relative h-full aspect-video md:aspect-auto overflow-hidden rounded-2xl md:rounded-[3.5rem] shadow-xl md:shadow-2xl">
           <img 
             src="/assets/images/web/technik-przygotowuje-sie-do-czyszczenia-wentylacji-8.avif"
             alt="Technik przygotowuje się do czyszczenia wentylacji"
@@ -393,7 +401,7 @@ const RealizationsGallery = () => {
   const visibleImages = showAll ? allImages : allImages.slice(0, 6);
 
   return (
-    <section className="px-6 md:px-10 lg:px-14 py-24">
+    <section className="px-6 md:px-10 lg:px-14 py-16 md:py-24">
       <div className="text-center mb-16">
         <motion.span 
           initial={{ opacity: 0 }}
@@ -437,7 +445,7 @@ const RealizationsGallery = () => {
 };
 
 const RotobrushTech = () => (
-  <section className="px-4 md:px-10 lg:px-14 relative py-20 overflow-hidden">
+  <section className="px-4 md:px-10 lg:px-14 relative py-12 md:py-20 overflow-hidden">
     {/* Background Decorative Element */}
     <div className="absolute top-1/2 right-0 -translate-y-1/2 w-96 h-96 bg-primary/5 blur-[120px] rounded-full pointer-events-none"></div>
 
@@ -578,7 +586,7 @@ const Home = () => {
   return (
     <>
       <PageTitle title="Czyścimy Wentylacje | Czyszczenie i Dezynfekcja Kanałów Wentylacyjnych" />
-      <main className="max-w-7xl mx-auto py-8 space-y-12 md:space-y-32 mb-20 px-6">
+      <main className="max-w-7xl mx-auto py-2 md:py-8 space-y-6 md:space-y-32 mb-10 md:mb-20 px-6">
         <Hero />
         
         <Services />
@@ -591,7 +599,7 @@ const Home = () => {
 
         <RealizationsGallery />
 
-        <section className="px-0 md:px-10 lg:px-14">
+        <section className="px-0 md:px-10 lg:px-14 py-4 md:py-0">
           <div className="bg-slate-900 rounded-2xl md:rounded-[4rem] overflow-hidden relative border border-slate-800 shadow-[0_40px_100px_rgba(0,0,0,0.3)]">
           <div className="grid grid-cols-1 lg:grid-cols-2">
             <div className="p-8 md:p-20 flex flex-col justify-center gap-8 relative z-10">
@@ -1141,7 +1149,8 @@ export default function App() {
 
   return (
     <BrowserRouter>
-      <div className="min-h-screen bg-[#FDFDFD] font-sans selection:bg-primary selection:text-white">
+      <ScrollToTop />
+      <div className="min-h-screen bg-white font-sans selection:bg-primary selection:text-white">
         <Header isOpen={isOpen} setIsOpen={setIsOpen} />
         
         <div className="pt-32">
